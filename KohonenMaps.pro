@@ -19,7 +19,8 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     instructiondialog.h \
-    settingsdialog.h
+    settingsdialog.h \
+    ololo.h
 
 FORMS    += mainwindow.ui \
     instructiondialog.ui \
