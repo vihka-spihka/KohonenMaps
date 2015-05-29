@@ -1,0 +1,749 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SettingsDialog</class>
+ <widget class="QDialog" name="SettingsDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>621</width>
+    <height>412</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>621</width>
+    <height>412</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>621</width>
+    <height>412</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Настройки</string>
+  </property>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>621</width>
+     <height>411</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="inputSettings">
+    <attribute name="title">
+     <string>Данные</string>
+    </attribute>
+    <widget class="QPushButton" name="nextButton1">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>360</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Далее &gt;&gt;</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>9</y>
+       <width>601</width>
+       <height>341</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Входные данные</string>
+     </property>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>291</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Выберите файл или введите входные данные вручную:</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="inputFromFileRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>40</y>
+        <width>101</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Ввод из файла:</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">inputButtonGroup</string>
+      </attribute>
+     </widget>
+     <widget class="QPushButton" name="chooseFileButton">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>40</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Обзор</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="inputSelfRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>60</y>
+        <width>101</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Ввод вручную:</string>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">inputButtonGroup</string>
+      </attribute>
+     </widget>
+     <widget class="QCheckBox" name="headlinesColomnsCheckBox">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>90</y>
+        <width>201</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>использовать заголовки столбцов</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="headlinesRowCheckBox">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>110</y>
+        <width>221</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>использовать столбец с информацией</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>140</y>
+        <width>581</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>75</number>
+      </attribute>
+      <attribute name="horizontalHeaderMinimumSectionSize">
+       <number>35</number>
+      </attribute>
+      <attribute name="verticalHeaderDefaultSectionSize">
+       <number>20</number>
+      </attribute>
+      <attribute name="verticalHeaderMinimumSectionSize">
+       <number>20</number>
+      </attribute>
+     </widget>
+     <widget class="QPushButton" name="addColomnButton">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>80</y>
+        <width>111</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Добавить столбец</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="addRowButton">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>110</y>
+        <width>111</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Добавить строку</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="parametersSettings">
+    <attribute name="title">
+     <string>Параметры</string>
+    </attribute>
+    <widget class="QPushButton" name="nextButton2">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>360</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Далее &gt;&gt;</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="backButton1">
+     <property name="geometry">
+      <rect>
+       <x>380</x>
+       <y>360</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>&lt;&lt; Назад</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>591</width>
+       <height>80</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Параметры сети</string>
+     </property>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>91</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Размер по оси Х:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>50</y>
+        <width>91</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Размер по оси У:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="xSizeLineEdit">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>20</y>
+        <width>113</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="ySizeLineEdit">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>50</y>
+        <width>113</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>591</width>
+       <height>251</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Параметры обучения</string>
+     </property>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>151</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Точка остановки обучения:</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="countIterationRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>40</y>
+        <width>151</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>По количеству итераций:</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">stopPointButtonGroup</string>
+      </attribute>
+     </widget>
+     <widget class="QRadioButton" name="countErrorRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>60</y>
+        <width>141</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>По значению ошибки:</string>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">stopPointButtonGroup</string>
+      </attribute>
+     </widget>
+     <widget class="QLineEdit" name="iterationCountLineEdit">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>40</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="errorCountLineEdit">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>60</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>90</y>
+        <width>101</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Радиус обучения:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="radiusCountLineEdit">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>90</y>
+        <width>71</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>120</y>
+        <width>111</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Скорость обучения:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>140</y>
+        <width>51</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>В начале:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="startSpeedLineEdit">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>140</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>140</y>
+        <width>51</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>В конце:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="finishSpeedLineEdit">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>140</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>170</y>
+        <width>131</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Количество кластеров:</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="autoCountClastersRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>190</y>
+        <width>101</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Автоматически</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">countClustersButtonGroup</string>
+      </attribute>
+     </widget>
+     <widget class="QRadioButton" name="selfCountClastersRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>210</y>
+        <width>82</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Вручную:</string>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">countClustersButtonGroup</string>
+      </attribute>
+     </widget>
+     <widget class="QLineEdit" name="selfCountClastersLineEdit">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>210</y>
+        <width>71</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="displaySettings">
+    <attribute name="title">
+     <string>Отображение</string>
+    </attribute>
+    <widget class="QPushButton" name="buildButton">
+     <property name="geometry">
+      <rect>
+       <x>400</x>
+       <y>360</y>
+       <width>171</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Построить карту Кохонена &gt;&gt;</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="backButton2">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>360</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>&lt;&lt; Назад</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>591</width>
+       <height>341</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Отображение</string>
+     </property>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>81</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Форма ячеек:</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="fourShapeRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>40</y>
+        <width>121</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Четырехугольная</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">shapeButtonGroup</string>
+      </attribute>
+     </widget>
+     <widget class="QRadioButton" name="sixShapeRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>60</y>
+        <width>111</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Шестиугольная</string>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">shapeButtonGroup</string>
+      </attribute>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>90</y>
+        <width>171</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Отображение карты Кохонена:</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="rgbColorRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>110</y>
+        <width>82</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Цветная</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">colorButtonGroup</string>
+      </attribute>
+     </widget>
+     <widget class="QRadioButton" name="b_wColorRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>130</y>
+        <width>91</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Черно-белая</string>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">colorButtonGroup</string>
+      </attribute>
+     </widget>
+     <widget class="QCheckBox" name="borderCellCheckBox">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>160</y>
+        <width>101</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Границы ячеек</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="borderClusterCheckBox">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>180</y>
+        <width>131</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Границы кластеров</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>210</y>
+        <width>131</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Демонстрация карты:</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="stepDemoRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>230</y>
+        <width>82</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Пошаговая</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">demoButtonGroup</string>
+      </attribute>
+     </widget>
+     <widget class="QRadioButton" name="finishedDemoRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>250</y>
+        <width>111</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>После обучения</string>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">demoButtonGroup</string>
+      </attribute>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+ <buttongroups>
+  <buttongroup name="stopPointButtonGroup"/>
+  <buttongroup name="colorButtonGroup"/>
+  <buttongroup name="countClustersButtonGroup"/>
+  <buttongroup name="inputButtonGroup"/>
+  <buttongroup name="demoButtonGroup"/>
+  <buttongroup name="shapeButtonGroup"/>
+ </buttongroups>
+</ui>

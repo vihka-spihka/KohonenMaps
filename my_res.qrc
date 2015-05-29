@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/Icons">
+        <file>about.png</file>
+        <file>exit2.png</file>
+        <file>saveInput.png</file>
+        <file>saveMap.png</file>
+        <file>info.png</file>
+        <file>new.png</file>
+        <file>mainIcon.png</file>
+    </qresource>
+    <qresource prefix="/Info">
+        <file>instruction.txt</file>
+    </qresource>
+</RCC>
