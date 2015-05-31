@@ -15,11 +15,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     instructiondialog.cpp \
-    settingsdialog.cpp
+    settingsdialog.cpp \
+    network.cpp \
+    neuron.cpp
 
 HEADERS  += mainwindow.h \
     instructiondialog.h \
-    settingsdialog.h
+    settingsdialog.h \
+    network.h \
+    neuron.h
 
 FORMS    += mainwindow.ui \
     instructiondialog.ui \
