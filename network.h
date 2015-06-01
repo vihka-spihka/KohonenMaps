@@ -27,13 +27,13 @@ public:
 
     void nextStep(); // Выполнение алгоритма за одну итерацию
     double getCurSpeedTraining(); //Получение текущей скорости обучения
-    int getCurRange(); // Получение текущего радиус
-    int getCurAge(); // Получение текущей эпох
+    int getCurRange(); // Получение текущего радиуса
+    int getCurAge(); // Получение текущей эпохи
     int getCurIter(); // Получение текущей итерации
     int getCurXWin(); //Получение позиции нейрона-победителя - X
     int getCurYWin(); //Получение позиции нейрона-победителя - Y
     vector <double> getCurInputData(); //Получение текущих входных данных
-    vector <vector <vector <double> > > getW(); // Получение состоянии выходного слоя после ввода текущих входных данный
+    vector <vector <vector <double> > > getW(); // Получение состояний выходного слоя после ввода текущих входных данных
     //string getCurNameRows();
 
 private:
@@ -41,7 +41,7 @@ private:
     void calcSpeedTraining(); // Подсчет текущей скорости обучения
     void calcRange(); //Подсчет радиуса соседства
     void calcIter(); //Подсчет текущей итерации и эпохи
-    void createOutputLayout(); //Создание выходного слоя нейронов
+    void createOutputLayout(); //Создание (заполнение) выходного слоя нейронов
     void inputData(); //Ввод текущих данных в матрицу
     void findWinnerNeuron(); //Поиск нейрона победителя
     void changeW(); //Изменение весовых коэффициентов
@@ -76,7 +76,7 @@ private:
     //vector <string> nameRows;
     //vector <string> nameColumns;
     vector < vector <double> > inputLayout;
-    vector < vector <Neuron*> > outputLayout;
+    vector < vector <Neuron*> > outputLayout; //2мерный вектор указателей на объект нейрон (к createNeuron)
 
 };
 
