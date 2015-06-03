@@ -1,9 +1,6 @@
 #include <QMessageBox>
 #include "mainwindow.h"
-#include "instructiondialog.h"
-#include "settingsdialog.h"
 #include "ui_mainwindow.h"
-#include "network.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,11 +12,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->nextStepButton->setEnabled(false);
     ui->backToSettingsButton->setEnabled(false);
     //MainWindow *wnd = new MainWindow(this);
-    SettingsDialog *setDlg = new SettingsDialog(this);
+    setDlg = new SettingsDialog(this);
 
     //здесь дб объект кнопка buildButton и clicked(bool)
     connect(setDlg, SIGNAL(accepted()), this, SLOT(nextStepButtonEnable()));
     connect(setDlg, SIGNAL(accepted()), this, SLOT(backToSettingsButtonEnable()));
+    connect(setDlg, SIGNAL(newNetwork(double,double,int,int,double,double,int,int,int,vector<vector<double> >)),
+            this,SLOT(newNetwork(double,double,int,int,double,double,int,int,int,vector<vector<double> >)));
 }
 
 MainWindow::~MainWindow()
@@ -45,7 +44,6 @@ void MainWindow::on_action_exit_triggered() //выход из программы
 
 void MainWindow::on_action_new_triggered()  //создать новую карту Кохонена
 {
-    SettingsDialog *setDlg = new SettingsDialog(this);
     setDlg->show();
 }
 
@@ -67,4 +65,17 @@ void MainWindow::backToSettingsButtonEnable(){
         ui->nextStepButton->setEnabled(true);
         ui->backToSettingsButton->setEnabled(true);
     }
+}
+
+void MainWindow::newNetwork(double maxSpeedTraining, double minSpeedTraining, int minRange, int maxRange, double minCoegWeight, double maxCoegWeight, int numAge, int numColumns, int numRows, vector<vector<double> > inputLayout){
+    network = new Network(maxSpeedTraining,
+                          minSpeedTraining,
+                          minRange,
+                          maxRange,
+                          minCoegWeight,
+                          maxCoegWeight,
+                          numAge,
+                          numColumns,
+                          numRows,
+                          inputLayout);
 }

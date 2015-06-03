@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QTableWidget>
+#include "settingsdialog.h"
+#include "network.h"
 
 namespace Ui {
 class MainWindow;
@@ -29,8 +30,21 @@ private slots:
 
     void backToSettingsButtonEnable();  //кнопка "Назад к настройкам" доступна
 
+    void newNetwork(double maxSpeedTraining,
+                    double minSpeedTraining,
+                    int minRange,
+                    int maxRange,
+                    double minCoegWeight,
+                    double maxCoegWeight,
+                    int numAge,
+                    int numColumns,
+                    int numRows,
+                    vector<vector<double> > inputLayout);
+
 private:
     Ui::MainWindow *ui;
+    Network* network;
+    SettingsDialog* setDlg;
 };
 
 #endif // MAINWINDOW_H

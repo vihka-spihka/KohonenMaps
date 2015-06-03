@@ -2,6 +2,8 @@
 #define SETTINGSDIALOG_H
 
 #include <QDialog>
+#include <vector>
+using namespace std;
 
 namespace Ui {
 class SettingsDialog;
@@ -14,6 +16,18 @@ class SettingsDialog : public QDialog
 public:
     explicit SettingsDialog(QWidget *parent = 0);
     ~SettingsDialog();
+
+signals:
+    void newNetwork (double maxSpeedTraining,
+                    double minSpeedTraining,
+                    int minRange,
+                    int maxRange,
+                    double minCoegWeight,
+                    double maxCoegWeight,
+                    int numAge,
+                    int numColumns,
+                    int numRows,
+                    vector<vector<double> > inputLayout);
 
 private slots:
     void on_nextButton1_clicked(int index);
