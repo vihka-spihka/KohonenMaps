@@ -3,6 +3,7 @@
 #include "instructiondialog.h"
 #include "settingsdialog.h"
 #include "ui_mainwindow.h"
+#include "network.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),

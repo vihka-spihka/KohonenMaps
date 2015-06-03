@@ -62,8 +62,10 @@ void SettingsDialog::on_inputFromFileRadioButton_clicked()
     {
         ui->addColomnButton->setEnabled(false);
         ui->addRowButton->setEnabled(false);
-        ui->borderCellCheckBox->setEnabled(false); //not working
-        ui->borderClusterCheckBox->setEnabled(false); //not working
+        //ui->borderCellCheckBox->setEnabled(false); //not working
+        ui->headlinesColomnsCheckBox->setEnabled(false);
+        ui->headlinesRowCheckBox->setEnabled(false);
+        //ui->borderClusterCheckBox->setEnabled(false); //not working
         ui->tableWidget->setEnabled(false);
         ui->chooseFileButton->setEnabled(true);
         //ui->inputFromFileRadioButton->setEnabled(true);
@@ -77,8 +79,8 @@ void SettingsDialog::on_inputSelfRadioButton_clicked()
     {
         ui->addColomnButton->setEnabled(true);
         ui->addRowButton->setEnabled(true);
-        ui->borderCellCheckBox->setEnabled(true);
-        ui->borderClusterCheckBox->setEnabled(true);
+        ui->headlinesColomnsCheckBox->setEnabled(true);
+        ui->headlinesRowCheckBox->setEnabled(true);
         ui->tableWidget->setEnabled(true);
         ui->chooseFileButton->setEnabled(false);
     }
@@ -143,4 +145,42 @@ void SettingsDialog::on_chooseFileButton_clicked()
 
 
 
+}
+
+void SettingsDialog::on_headlinesColomnsCheckBox_clicked()
+{
+
+}
+
+void SettingsDialog::on_nextButton1_clicked()
+{
+    int index = ui->tabWidget->currentIndex();
+    index++;
+    ui->tabWidget->setCurrentIndex(index);
+}
+
+void SettingsDialog::on_backButton1_clicked()
+{
+    int index = ui->tabWidget->currentIndex();
+    index--;
+    ui->tabWidget->setCurrentIndex(index);
+}
+
+void SettingsDialog::on_nextButton2_clicked()
+{
+    int index = ui->tabWidget->currentIndex();
+    index++;
+    ui->tabWidget->setCurrentIndex(index);
+}
+
+void SettingsDialog::on_backButton2_clicked()
+{
+    int index = ui->tabWidget->currentIndex();
+    index--;
+    ui->tabWidget->setCurrentIndex(index);
+}
+
+void SettingsDialog::on_buildButton_clicked()
+{
+    close();
 }

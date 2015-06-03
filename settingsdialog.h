@@ -28,6 +28,18 @@ private slots:
 
     void on_chooseFileButton_clicked();
 
+    void on_headlinesColomnsCheckBox_clicked();
+
+    void on_nextButton1_clicked();
+
+    void on_backButton1_clicked();
+
+    void on_nextButton2_clicked();
+
+    void on_backButton2_clicked();
+
+    void on_buildButton_clicked();
+
 public slots:
     bool on_buildButton_clicked(bool);
 
