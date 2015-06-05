@@ -75,6 +75,7 @@ private:
 
     //vector <string> nameRows;
     //vector <string> nameColumns;
+    vector <bool> vectorCurIter;
     vector < vector <double> > inputLayout;
     vector < vector <Neuron*> > outputLayout; //2мерный вектор указателей на объект нейрон (к createNeuron)
 

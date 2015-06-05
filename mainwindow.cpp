@@ -1,6 +1,8 @@
 #include <QMessageBox>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QDebug>
+#include <QColor>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,16 +11,22 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->statusBar->showMessage("Готов к работе!");
 
-    ui->nextStepButton->setEnabled(false);
     ui->backToSettingsButton->setEnabled(false);
-    //MainWindow *wnd = new MainWindow(this);
     setDlg = new SettingsDialog(this);
 
-    //здесь дб объект кнопка buildButton и clicked(bool)
-    connect(setDlg, SIGNAL(accepted()), this, SLOT(nextStepButtonEnable()));
-    connect(setDlg, SIGNAL(accepted()), this, SLOT(backToSettingsButtonEnable()));
-    connect(setDlg, SIGNAL(newNetwork(double,double,int,int,double,double,int,int,int,vector<vector<double> >)),
-            this,SLOT(newNetwork(double,double,int,int,double,double,int,int,int,vector<vector<double> >)));
+    scene = new QGraphicsScene(this);
+    ui->graphicsView->setScene(scene);
+
+    timer = new QTimer(this);
+    qDebug() << ui->graphicsView->width();
+
+    scene->setSceneRect(0,0,ui->graphicsView->width(),ui->graphicsView->height());
+
+     connect(setDlg,
+            SIGNAL(newNetwork(double,double,int,int,double,double,int,int,int,vector<vector<double> >)),
+            this,
+            SLOT(newNetwork(double,double,int,int,double,double,int,int,int,vector<vector<double> >)));
+    connect(timer, SIGNAL(timeout()), this, SLOT(changeHexagons()));
 }
 
 MainWindow::~MainWindow()
@@ -33,8 +41,8 @@ void MainWindow::on_action_about_triggered()    //показать справк�
 
 void MainWindow::on_action_info_triggered() //показать инструкцию
 {
-    InstructionDialog *instruction = new InstructionDialog(this);
-    instruction->show();
+    //InstructionDialog *instruction = new InstructionDialog(this);
+    //instruction->show();
 }
 
 void MainWindow::on_action_exit_triggered() //выход из программы
@@ -48,26 +56,21 @@ void MainWindow::on_action_new_triggered()  //создать новую карт
 }
 
 void MainWindow::nextStepButtonEnable(){
-    SettingsDialog *settingsDlg = new SettingsDialog(this);
-    QMessageBox::information(this,"fuid","sdoij");
-    if(settingsDlg->on_buildButton_clicked(true))
-    {
-
-        ui->nextStepButton->setEnabled(true);
-        ui->backToSettingsButton->setEnabled(true);
-    }
+    ui->nextStepButton->setEnabled(true);
+    ui->backToSettingsButton->setEnabled(true);
 }
 
 void MainWindow::backToSettingsButtonEnable(){
-    SettingsDialog *settingsDlg = new SettingsDialog(this);
-    if(settingsDlg->on_buildButton_clicked(true))
-    {
-        ui->nextStepButton->setEnabled(true);
-        ui->backToSettingsButton->setEnabled(true);
-    }
+    //SettingsDialog *settingsDlg = new SettingsDialog(this);
+    //if(settingsDlg->on_buildButton_clicked(true))
+    //{
+      //  ui->nextStepButton->setEnabled(true);
+        //ui->backToSettingsButton->setEnabled(true);
+    //}
 }
 
 void MainWindow::newNetwork(double maxSpeedTraining, double minSpeedTraining, int minRange, int maxRange, double minCoegWeight, double maxCoegWeight, int numAge, int numColumns, int numRows, vector<vector<double> > inputLayout){
+
     network = new Network(maxSpeedTraining,
                           minSpeedTraining,
                           minRange,
@@ -78,4 +81,102 @@ void MainWindow::newNetwork(double maxSpeedTraining, double minSpeedTraining, in
                           numColumns,
                           numRows,
                           inputLayout);
+
+    this->numRows = numRows;
+    this->numColumns = numColumns;
+    numIteration = numAge * inputLayout.size();
+    widthCell = 10;
+    //addRectangles();
+    addHexagons();
+
+}
+void MainWindow::addHexagons(){
+    double varRows = 0;
+    vectorHexagons.resize(numRows);
+    for(int i = 0; i < numRows; i++){
+        double varColumns;
+            if(i % 2)
+                varColumns = 0;
+            else
+                varColumns = widthCell/2;
+        vectorHexagons[i].resize(numColumns);
+        for(int j = 0; j < numColumns; j++){
+            vectorHexagons[i][j] = scene->addPolygon(QPolygonF(
+            QVector<QPointF> ()
+                        << QPointF(varRows+widthCell/3,varColumns)
+                        << QPointF(varRows,varColumns+widthCell/2)
+                        << QPointF(varRows+widthCell/3,varColumns+widthCell)
+                        << QPointF(varRows+2*widthCell/3,varColumns+widthCell)
+                        << QPointF(varRows+widthCell,varColumns+widthCell/2)
+                        << QPointF(varRows+2*widthCell/3,varColumns)
+                      ),QPen(Qt::NoPen));
+
+
+            varColumns+=widthCell;
+        }
+        varRows+=2*widthCell/3;
+    }
+}
+
+void MainWindow::addRectangles(){
+    int varRows = 0;
+    vectorRectangles.resize(numRows);
+    for (int i = 0; i < numRows; i++) {
+        int varColumns = 0;
+        vectorRectangles[i].resize(numColumns);
+        for(int j = 0; j < numColumns; j++){
+            vectorRectangles[i][j] = scene->addRect(varRows, varColumns, widthCell, widthCell, QPen(Qt::NoPen),QBrush(Qt::red));
+            //vectorRectangles[i][j]->setPen(QPen(Qt::black, 0, Qt::SolidLine, Qt::SquareCap, Qt::RoundJoin));
+
+            varColumns+=widthCell;
+        }
+        varRows+=widthCell;
+    }
+}
+void MainWindow::nextStep(){
+    if(numIteration > 0) {
+        network->nextStep();
+        qDebug() << "Iteration: " << numIteration;
+        qDebug() << "Age: " << network->getCurAge();
+
+
+        timer->start(1);
+        numIteration--;
+    }
+
+}
+
+void MainWindow::changeRectangles(){
+    vectorColors = network->getW();
+    for (int i = 0; i < numRows; i++) {
+        for(int j = 0; j < numColumns; j++){
+           vectorRectangles[i][j]->setBrush(QBrush(QColor(
+                                      vectorColors[i][j][0],
+                                      vectorColors[i][j][1],
+                                      vectorColors[i][j][2])));
+        }
+    }
+    numIteration--;
+    nextStep();
+}
+
+void MainWindow::changeHexagons(){
+    vectorColors = network->getW();
+    for (int i = 0; i < numRows; i++) {
+        for(int j = 0; j < numColumns; j++){
+           vectorHexagons[i][j]->setBrush(QBrush(QColor(
+                                      vectorColors[i][j][0],
+                                      vectorColors[i][j][1],
+                                      vectorColors[i][j][2])));
+        }
+    }
+
+    numIteration--;
+    nextStep();
+}
+
+
+void MainWindow::on_nextStepButton_clicked()
+{
+    nextStep();
 }

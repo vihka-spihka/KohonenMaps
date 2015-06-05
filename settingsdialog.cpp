@@ -9,6 +9,9 @@
 #include <QMessageBox>
 #include "settingsdialog.h"
 #include "ui_settingsdialog.h"
+#include "vector"
+
+#include <QDebug>
 
 SettingsDialog::SettingsDialog(QWidget *parent) :
     QDialog(parent),
@@ -27,8 +30,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     }
 
     //not working
-    connect(ui->tableWidget,SIGNAL(currentChanged(int)),this, SLOT(on_nextButton1_clicked(int)));
-    connect(ui->buildButton, SIGNAL(clicked()), this, SLOT(accept()));
+    //connect(ui->tableWidget,SIGNAL(currentChanged(int)),this, SLOT(on_nextButton1_clicked(int)));
+    //connect(ui->buildButton, SIGNAL(clicked()), this, SLOT(accept()));
 
 
 }
@@ -39,15 +42,6 @@ SettingsDialog::~SettingsDialog()
 }
 
 //not working
-void SettingsDialog::on_nextButton1_clicked(int index)
-{
-    QTabWidget *tabwidget = new QTabWidget(this);
-    index = tabwidget->currentIndex();
-    index++;
-    tabwidget->setCurrentIndex(index);
-    //tabwidget->widget(index);
-
-}
 
 
 bool SettingsDialog::on_buildButton_clicked(bool)
@@ -182,5 +176,60 @@ void SettingsDialog::on_backButton2_clicked()
 
 void SettingsDialog::on_buildButton_clicked()
 {
+    vector < vector <double > > inputLayout;
+
+    inputLayout.resize(765);
+    for(int i = 0; i < 765; i++){
+        inputLayout[i].push_back(qrand() % 255);
+        inputLayout[i].push_back(qrand() % 255);
+        inputLayout[i].push_back(qrand() % 255);
+    }
+
+/*
+    inputLayout[0].push_back(255);
+    inputLayout[0].push_back(0);
+    inputLayout[0].push_back(0);
+
+
+    inputLayout[1].push_back(0);
+    inputLayout[1].push_back(255);
+    inputLayout[1].push_back(0);
+
+    inputLayout[2].push_back(0);
+    inputLayout[2].push_back(0);
+    inputLayout[2].push_back(255);
+
+    inputLayout[3].push_back(0);
+    inputLayout[3].push_back(100);
+    inputLayout[3].push_back(0);
+
+    inputLayout[4].push_back(0);
+    inputLayout[4].push_back(0);
+    inputLayout[4].push_back(139);
+
+    inputLayout[5].push_back(255);
+    inputLayout[5].push_back(255);
+    inputLayout[5].push_back(0);
+
+    inputLayout[6].push_back(255);
+    inputLayout[6].push_back(165);
+    inputLayout[6].push_back(0);
+
+
+    inputLayout[7].push_back(128);
+    inputLayout[7].push_back(0);
+    inputLayout[7].push_back(128);*/
+
+    emit newNetwork(0.9,
+                   0.1,
+                   1,
+                   75,
+                   0.0,
+                   255.0,
+                   50,
+                   75,
+                   210,
+                   inputLayout);
     close();
+
 }

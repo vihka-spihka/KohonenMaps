@@ -4,6 +4,10 @@
 #include <QMainWindow>
 #include "settingsdialog.h"
 #include "network.h"
+#include <QTimer>
+#include <QGraphicsScene>
+#include <QGraphicsRectItem>
+#include <vector>
 
 namespace Ui {
 class MainWindow;
@@ -41,10 +45,31 @@ private slots:
                     int numRows,
                     vector<vector<double> > inputLayout);
 
+    void on_nextStepButton_clicked();
+
+    void addRectangles();
+    void changeRectangles();
+    void nextStep();
+    void addHexagons();
+
+    void changeHexagons();
+signals:
+
+
+
 private:
     Ui::MainWindow *ui;
     Network* network;
     SettingsDialog* setDlg;
+    QGraphicsScene *scene;
+    QTimer *timer;
+    int numIteration;
+    int numRows;
+    int numColumns;
+    double widthCell;
+    vector <vector <QGraphicsRectItem*> > vectorRectangles;
+    vector <vector <QGraphicsPolygonItem*> > vectorHexagons;
+    vector <vector <vector <double> > > vectorColors;
 };
 
 #endif // MAINWINDOW_H

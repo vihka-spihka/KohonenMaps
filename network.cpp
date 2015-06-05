@@ -1,4 +1,5 @@
 #include "network.h"
+#include "QDebug"
 
 Network::Network(
         double maxSpeedTraining,
@@ -27,6 +28,7 @@ Network::Network(
     //this->nameRows = nameRows;
     //this->nameColumns = nameColumns;
     this->inputLayout = inputLayout;
+    this->vectorCurIter.resize(inputLayout.size());
 
     this->curAge = 0; //номер эпохи на данный момент
     this->curIter = 0; //номер итерации на данный момент
@@ -39,9 +41,6 @@ Network::Network(
     this->ex_curIter = 0; //номер предыдущей итерации
     this->ex_curRange = 0; //предыдущее значение радиуса
     this->ex_curSpeedTraining = 0; //предыдущее значение скорости обучения
-
-
-    showData();
 
     createOutputLayout();
 
@@ -88,14 +87,14 @@ vector <double> Network::getCurInputData(){ //получение вх данны
     return nameColumns[ex_curIter];
 }\*/
 void showOneStrVector(vector <string> array){
-    for (int i = 0; i < array.size(); i++)
-        cout << array[i] << " ";
+    //for (int i = 0; i < array.size(); i++)
+        //qDebug() << array[i] << " ";
 }
 void showTwoDoubleVector(vector < vector <double> > array){
     for (int i = 0; i < array.size(); i++) {
         for(int j = 0; j < array[i].size(); j++)
-            cout << array [i][j] << " ";
-        cout << "\n";
+            qDebug() << array [i][j] << " ";
+        qDebug() << "\n";
     }
 }
 void Network::showW(){
@@ -103,30 +102,30 @@ void Network::showW(){
         for(int j = 0; j < outputLayout[i].size(); j++){
             vector <double> var = outputLayout[i][j]->getW();
             for (int k = 0; k < var.size(); k++)
-                cout << int(var[k]) << ",";
-            cout << " | ";
+                qDebug() << int(var[k]) << ",";
+            qDebug() << " | ";
         }
-        cout << "\n";
+        qDebug() << "\n";
     }
 }
 void Network::showData(){
-    cout << "\n maxSpeedTraining = " << maxSpeedTraining;
-    cout << "\n minSpeedTraining = " << minSpeedTraining;
-    cout << "\n minRange = " << minRange;
-    cout << "\n maxRange = " << maxRange;
-    cout << "\n minCoegWeight = " << minCoegWeight;
-    cout << "\n maxCoegWeight = " << maxCoegWeight;
-    cout << "\n numAge = " << numAge;
-    cout << "\n numColumns = " << numColumns;
-    cout << "\n numRows = " << numRows;
+    qDebug() << "\n maxSpeedTraining = " << maxSpeedTraining;
+    qDebug() << "\n minSpeedTraining = " << minSpeedTraining;
+    qDebug() << "\n minRange = " << minRange;
+    qDebug() << "\n maxRange = " << maxRange;
+    qDebug() << "\n minCoegWeight = " << minCoegWeight;
+    qDebug() << "\n maxCoegWeight = " << maxCoegWeight;
+    qDebug() << "\n numAge = " << numAge;
+    qDebug() << "\n numColumns = " << numColumns;
+    qDebug() << "\n numRows = " << numRows;
 
-    //cout << "\nnameRows\n";
+    //qDebug() << "\nnameRows\n";
     //showOneStrVector(nameRows);
 
-    //cout << "\nnameColumns\n";
+    //qDebug() << "\nnameColumns\n";
     //howOneStrVector(nameColumns);
 
-    cout << "\ninputLayout\n";
+    qDebug() << "\ninputLayout\n";
     showTwoDoubleVector(inputLayout);
 }
 void Network::createOutputLayout(){
@@ -170,13 +169,14 @@ void Network::findWinnerNeuron(){
         }
     }
 
-    double min = var[0][0]; //берем за минимальный нейрон 0,0
-    int x_min = 0;
-    int y_min = 0;
+    int x_min = qrand() % outputLayout.size();
+    int y_min = qrand() % outputLayout[0].size();
+
+    double min = var[x_min][y_min]; //берем за минимальный нейрон 0,0
 
     for (int i = 0; i < var.size(); i++)
         for(int j = 0; j < var[i].size(); j++)
-            if (var[i][j] < min) { //если текущий элемент меньше минимума то он им становится
+            if (var[i][j] <= min) { //если текущий элемент меньше минимума то он им становится
                 min = var[i][j];
                 x_min = i;
                 y_min = j;
@@ -190,18 +190,16 @@ void Network::changeW(){ //определяем: изменение каких �
     for(int i = -curRange; i < curRange+1; i++){ //поиск соседей
         for (int j = -curRange; j < curRange+1; j++){
             if( ((x+i) < outputLayout.size() && (x+i) >= 0) && //если по Х нейрон находится в рамках сети
-                ((y+j) < outputLayout[0].size() && (y+j) >= 0)
-              ) {
-                int range = 1;
-                if (i == 0 && j == 0) //если это нейрон-победитель
-                    range = 1;
-                if (abs(i) > abs(j)) //если по строкам (асболютное значение по модулю) дальше, чем по столбцам,
-                    range = abs(i); // то радиус соседства= номеру строки
+                ((y+j) < outputLayout[0].size() && (y+j) >= 0)) {
+                int dist = i*i+j*j;
+                double var = exp(double(-dist)/double((2*curRange*curRange)));
+                /*if (abs(i) > abs(j)) //если по строкам (асболютное значение по модулю) дальше, чем по столбцам,
+                    range = (curRange+1)-abs(i); // то радиус соседства= номеру строки
                 if (abs(j) > abs(i)) //если по столбцам дальше, чем по строкам,
-                    range = abs(j); //то радиус=номеру столбца
+                    range = (curRange+1)-abs(j); //то радиус=номеру столбца
                 if (abs(i) == abs(j)) //если номер строки и столбца равны
-                    range = abs(i); //то неважно, что брать, пусть будет i
-                outputLayout[x+i][y+j]->changeW(curSpeedTraining, range); //у нейронов в зоне радиуса обучения меняем весы
+                    range = (curRange+1)-abs(i); //то неважно, что брать, пусть будет i*/
+                outputLayout[x+i][y+j]->changeW(curSpeedTraining, var); //у нейронов в зоне радиуса обучения меняем весы
             }
         }
     }
@@ -214,9 +212,28 @@ void Network::calcSpeedTraining(){
 void Network::calcIter(){
     ex_curIter = curIter;
     ex_curAge = curAge;
-    curIter = (curIter+1) % inputLayout.size(); //ищем остаток от деления
+
+    bool var = true;
+    while(var){
+        curIter = qrand() % inputLayout.size();
+        if (vectorCurIter[curIter] == false) {
+            var = false;
+            vectorCurIter[curIter] = true;
+        }
+    }
+    bool temp = true;
+    for (int i = 0; i < vectorCurIter.size(); i++)
+        if (vectorCurIter[i] == false)
+            temp = false;
+
+   /* curIter = (curIter+1) % inputLayout.size(); //ищем остаток от деления
     if(curIter == 0) //если дошли до конца входного слоя нейронов, повышаем кол-во эпох
+        curAge++;*/
+    if (temp) {
         curAge++;
+        for(int i = 0; i < vectorCurIter.size(); i++)
+            vectorCurIter[i] = false;
+    }
 };
 void Network::calcRange(){
     ex_curRange = curRange;

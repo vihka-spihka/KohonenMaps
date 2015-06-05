@@ -19,7 +19,7 @@ public:
             );
 
     void inputData(vector <double> X);
-    void changeW(double speedTraining, int range);
+    void changeW(double speedTraining, double range);
     double getDistance();
     vector <double> getW();
 private:

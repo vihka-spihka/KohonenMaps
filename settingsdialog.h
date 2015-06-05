@@ -30,7 +30,6 @@ signals:
                     vector<vector<double> > inputLayout);
 
 private slots:
-    void on_nextButton1_clicked(int index);
 
     void on_inputFromFileRadioButton_clicked();
 
