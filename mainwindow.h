@@ -32,44 +32,60 @@ private slots:
 
     void nextStepButtonEnable();    //кнопка "След шаг" доступна
 
-    void backToSettingsButtonEnable();  //кнопка "Назад к настройкам" доступна
-
-    void newNetwork(double maxSpeedTraining,
-                    double minSpeedTraining,
-                    int minRange,
-                    int maxRange,
-                    double minCoegWeight,
-                    double maxCoegWeight,
-                    int numAge,
-                    int numColumns,
-                    int numRows,
-                    vector<vector<double> > inputLayout);
+    void newNetwork();
 
     void on_nextStepButton_clicked();
 
     void addRectangles();
     void changeRectangles();
-    void nextStep();
     void addHexagons();
 
     void changeHexagons();
+
+    void stepByStepCalc();
+    void withoutStepCalc();
+
+    void changeItems();
+
 signals:
 
-
-
 private:
+
+    void lastIteration();
+
     Ui::MainWindow *ui;
     Network* network;
     SettingsDialog* setDlg;
     QGraphicsScene *scene;
     QTimer *timer;
+
     int numIteration;
+    int curIteration;
     int numRows;
     int numColumns;
-    double widthCell;
+
     vector <vector <QGraphicsRectItem*> > vectorRectangles;
     vector <vector <QGraphicsPolygonItem*> > vectorHexagons;
     vector <vector <vector <double> > > vectorColors;
+
+    vector <QString> nameRows;
+    vector <QString> nameColumns;
+    vector < vector <double> > inputLayout;
+
+    int countAge;
+    double minWeight;
+    double maxWeight;
+    double stopPoint;
+    int minimumTrainingRange;
+    int maximumTrainingRange;
+    double startTrainingSpeed;
+    double endTrainingSpeed;
+    double widthCell;
+    int sizeStep;
+    bool hexOrSquare; // Шестиугольная или прямоугольная карта будет. 1 - hex, 0 - square
+    bool stepOrAfterTrain; // Пошагово или после обучения результат. 1 - step, 0 - after train
+    bool visulization; // Визуализация при непрерывном вычислении
+
 };
 
 #endif // MAINWINDOW_H

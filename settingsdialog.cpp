@@ -1,38 +1,11 @@
-#include <QTabWidget>
-#include <QTableWidget>
-#include <QPushButton>
-#include <QRadioButton>
-#include <QButtonGroup>
-#include <QFile>
-#include <QFileDialog>
-#include <QTextStream>
-#include <QMessageBox>
 #include "settingsdialog.h"
-#include "ui_settingsdialog.h"
-#include "vector"
-
-#include <QDebug>
 
 SettingsDialog::SettingsDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SettingsDialog)
 {
-    ui->setupUi(this);
-    //QTabWidget *tabwidget = new QTabWidget(this);
 
-    ui->tableWidget->setRowCount(10);   //строки
-    ui->tableWidget->setColumnCount(7); //столбцы
-
-
-    if(ui->inputFromFileRadioButton->isChecked())
-    {
-        on_inputFromFileRadioButton_clicked();
-    }
-
-    //not working
-    //connect(ui->tableWidget,SIGNAL(currentChanged(int)),this, SLOT(on_nextButton1_clicked(int)));
-    //connect(ui->buildButton, SIGNAL(clicked()), this, SLOT(accept()));
-
+    initValues();
 
 }
 
@@ -41,113 +14,57 @@ SettingsDialog::~SettingsDialog()
     delete ui;
 }
 
-//not working
 
-
-bool SettingsDialog::on_buildButton_clicked(bool)
-{
-    close();
-    return true;
-}
-
-void SettingsDialog::on_inputFromFileRadioButton_clicked()
-{
-    if(ui->inputFromFileRadioButton->isChecked())
-    {
-        ui->addColomnButton->setEnabled(false);
-        ui->addRowButton->setEnabled(false);
-        //ui->borderCellCheckBox->setEnabled(false); //not working
-        ui->headlinesColomnsCheckBox->setEnabled(false);
-        ui->headlinesRowCheckBox->setEnabled(false);
-        //ui->borderClusterCheckBox->setEnabled(false); //not working
-        ui->tableWidget->setEnabled(false);
-        ui->chooseFileButton->setEnabled(true);
-        //ui->inputFromFileRadioButton->setEnabled(true);
-
-}
-}
-
-void SettingsDialog::on_inputSelfRadioButton_clicked()
-{
-    if(ui->inputSelfRadioButton->isChecked())
-    {
-        ui->addColomnButton->setEnabled(true);
-        ui->addRowButton->setEnabled(true);
-        ui->headlinesColomnsCheckBox->setEnabled(true);
-        ui->headlinesRowCheckBox->setEnabled(true);
-        ui->tableWidget->setEnabled(true);
-        ui->chooseFileButton->setEnabled(false);
-    }
-//не доделано
-    if(ui->headlinesColomnsCheckBox->isChecked()){
-
-      //первая строка таблицы модет содержать String, но при обучении не учитывается
-
-
-    }
-}
-
-void SettingsDialog::on_addColomnButton_clicked()
-{
-    int colomn = ui->tableWidget->columnCount();
-    colomn++;
-    ui->tableWidget->setColumnCount(colomn);
-}
-
-void SettingsDialog::on_addRowButton_clicked()
-{
-    int row = ui->tableWidget->rowCount();
-    row++;
-    ui->tableWidget->setRowCount(row);
-}
-
-//not working
 void SettingsDialog::on_chooseFileButton_clicked()
 {
-    //QFile mFile;
-    QFileDialog *fileDlg = new QFileDialog(this);
-    fileDlg->getOpenFileName(this,"Открыть документ","c:/", "Text files (*.txt);;XLS files (*.xls *xlsx)");
-    //mFile = fileDlg->getOpenFileName(this,"Открыть документ","c:/", "Text files (*.txt)",QFileDialog::ReadOnly);
-    //QTextStream stream(&mFile);
+    QString fileName = QFileDialog::getOpenFileName(this,"Открыть документ","c:/", "Text files (*.txt)");
 
-    ui->tableWidget->setEnabled(true);
+    if (fileName != ""){ // Проверка чтобы файл существовал
+        QFile file(fileName);
+        if (!file.open(QIODevice::ReadOnly)) {
+                    QMessageBox::critical(this, tr("Error"), tr("Could not open file"));
+                }
+        else {
+            QTextStream in(&file);
+            //Конвертирование полученных данных
+            ConverterInputData converter(fileName, in.readAll());
 
-    //for (int i=0; i<=mFile.size(), i++){
-    //QString buffer = stream.readLine();
-    //считывать по слову/числу в ячейки таблицы
+            nameRows = converter.getNameRows();
+            nameColumns = converter.getNameColumns();
+            table = converter.getTable();
 
+            file.close();
 
-    //QFile file("test.txt");
-        /*if(mFile.open(QIODevice::ReadOnly |QIODevice::Text))
-        {
-            while(!file.atEnd())
-            {
-                //Делим строку на слова разделенные пробелом
-                QStringList lst = buffer.split("; ");
-                  // выводим первых три слова
-                //qDebug() << lst.at(0) << lst.at(1)<<lst.at(2);
-            }
-
+            fillingTableWidget();
+            ui->tableWidget->setEnabled(true);
         }
-        else
-        {
-            QMessageBox::information(this,"Ошибка","Невозможно использовать данный файл!");
-            //qDebug()<< "don't open file";
-        }*/
-
-   // }
-
-
-
+    }
 }
 
-void SettingsDialog::on_headlinesColomnsCheckBox_clicked()
-{
+// Заполнение виджета таблицы значениями, которые хранятся в векторах
+void SettingsDialog::fillingTableWidget(){
+    ui->tableWidget->setColumnCount(nameColumns.size());
+    ui->tableWidget->setRowCount(nameRows.size());
 
+    ui->spinBox_4->setValue(nameRows.size());
+    ui->spinBox_5->setValue(nameColumns.size());
+
+    for (int i = 0; i < nameColumns.size(); i++){
+        ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(nameColumns[i]));
+    }
+    for (int i = 0; i < nameRows.size(); i++){
+        ui->tableWidget->setVerticalHeaderItem(i, new QTableWidgetItem(nameRows[i]));
+    }
+
+    for (int i = 0; i < nameRows.size(); i++)
+        for (int j = 0; j < nameColumns.size(); j++) {
+            ui->tableWidget->setItem(i,j, new QTableWidgetItem(QString::number(table[i][j])));
+        }
 }
 
 void SettingsDialog::on_nextButton1_clicked()
 {
+    convertTableToVectors();
     int index = ui->tabWidget->currentIndex();
     index++;
     ui->tabWidget->setCurrentIndex(index);
@@ -176,60 +93,305 @@ void SettingsDialog::on_backButton2_clicked()
 
 void SettingsDialog::on_buildButton_clicked()
 {
-    vector < vector <double > > inputLayout;
-
-    inputLayout.resize(765);
-    for(int i = 0; i < 765; i++){
-        inputLayout[i].push_back(qrand() % 255);
-        inputLayout[i].push_back(qrand() % 255);
-        inputLayout[i].push_back(qrand() % 255);
-    }
-
-/*
-    inputLayout[0].push_back(255);
-    inputLayout[0].push_back(0);
-    inputLayout[0].push_back(0);
-
-
-    inputLayout[1].push_back(0);
-    inputLayout[1].push_back(255);
-    inputLayout[1].push_back(0);
-
-    inputLayout[2].push_back(0);
-    inputLayout[2].push_back(0);
-    inputLayout[2].push_back(255);
-
-    inputLayout[3].push_back(0);
-    inputLayout[3].push_back(100);
-    inputLayout[3].push_back(0);
-
-    inputLayout[4].push_back(0);
-    inputLayout[4].push_back(0);
-    inputLayout[4].push_back(139);
-
-    inputLayout[5].push_back(255);
-    inputLayout[5].push_back(255);
-    inputLayout[5].push_back(0);
-
-    inputLayout[6].push_back(255);
-    inputLayout[6].push_back(165);
-    inputLayout[6].push_back(0);
-
-
-    inputLayout[7].push_back(128);
-    inputLayout[7].push_back(0);
-    inputLayout[7].push_back(128);*/
-
-    emit newNetwork(0.9,
-                   0.1,
-                   1,
-                   75,
-                   0.0,
-                   255.0,
-                   50,
-                   75,
-                   210,
-                   inputLayout);
+    emit closeWindow();
     close();
 
 }
+
+void SettingsDialog::on_spinBox_4_valueChanged(int arg1)
+{
+    int var = ui->tableWidget->rowCount();
+    ui->tableWidget->setRowCount(arg1);
+    if (var < arg1) {
+        bool ok;
+    ui->tableWidget->setVerticalHeaderItem(
+                ui->tableWidget->rowCount()-1,
+                new QTableWidgetItem(
+                    QInputDialog::getText(
+                        this,
+                        "Ввод названия строки",
+                        "Название строки",
+                        QLineEdit::Normal,
+                        "Строка#" + QString::number(arg1),
+                        &ok)));
+        if (!ok) {
+            ui->tableWidget->setRowCount(var);
+            ui->spinBox_4->setValue(var);
+        }
+    }
+}
+
+void SettingsDialog::on_spinBox_5_valueChanged(int arg1)
+{
+
+    int var = ui->tableWidget->columnCount();
+    ui->tableWidget->setColumnCount(arg1);
+    if (var < arg1) {
+        bool ok;
+        ui->tableWidget->setHorizontalHeaderItem(
+                ui->tableWidget->columnCount()-1,
+                new QTableWidgetItem(
+                    QInputDialog::getText(
+                        this,
+                        "Ввод названия столбца",
+                        "Название столбца",
+                        QLineEdit::Normal,
+                        "Столбец#" + QString::number(arg1),
+                        &ok)));
+        if (!ok) {
+            ui->tableWidget->setColumnCount(var);
+            ui->spinBox_5->setValue(var);
+        }
+    }
+}
+
+void SettingsDialog::connects(){
+}
+
+void SettingsDialog::initValues(){
+
+    ui->setupUi(this);
+    ui->tableWidget->setRowCount(0);   //строки
+    ui->tableWidget->setColumnCount(0); //столбцы
+    ui->doubleSpinBox_5->setEnabled(false);
+    ui->checkBox->setEnabled(false);
+
+    countRowsOutputLayout = 20;
+    countColumnsOutputLayout = 20;
+    countAge = 1000;
+    stopPoint = 0.0;
+    minimumTrainingRange = 1;
+    maximumTrainingRange = 20;
+    endTrainingSpeed = 0.1;
+    startTrainingSpeed = 0.9;
+    minWeight = 0;
+    maxWeight = 255;
+    widthCell = 5;
+    hexOrSquare = true;
+    stepOrAfterTrain = true;
+    sizeStep = 100;
+    visulization = false;
+
+}
+
+//Конвертирование данных таблицы в вектора
+void SettingsDialog::convertTableToVectors(){
+    nameRows.clear();
+    nameColumns.clear();
+    table.clear();
+
+    for (int i = 0; i < ui->tableWidget->columnCount(); i++)
+            nameColumns.push_back(ui->tableWidget->horizontalHeaderItem(i)-> text());
+
+    for (int i = 0; i < ui->tableWidget->rowCount(); i++)
+            nameRows.push_back(ui->tableWidget->verticalHeaderItem(i)->text());
+
+    for (int i = 0; i < ui->tableWidget->rowCount(); i++){
+            table.resize(table.size()+1);
+            for (int j = 0; j < ui->tableWidget->columnCount(); j++) {
+                table[i].push_back(ui->tableWidget->item(i,j)->text().toDouble());
+            }
+        }
+
+    fillingTableWidget();
+
+}
+
+// count rows output layout
+void SettingsDialog::on_spinBox_valueChanged(int arg1)
+{
+    countRowsOutputLayout = arg1;
+}
+
+// количество столбцов выходного слоя
+void SettingsDialog::on_spinBox_2_valueChanged(int arg1)
+{
+    countColumnsOutputLayout = arg1;
+}
+
+// количество эпох
+void SettingsDialog::on_spinBox_3_valueChanged(int arg1)
+{
+    countAge = arg1;
+}
+// значение точки останова
+void SettingsDialog::on_doubleSpinBox_5_valueChanged(double arg1)
+{
+    stopPoint = arg1;
+}
+// Минимальный радиус обучения
+void SettingsDialog::on_spinBox_6_valueChanged(int arg1)
+{
+    maximumTrainingRange = arg1;
+}
+// Максимальный радиус обучения
+void SettingsDialog::on_spinBox_7_valueChanged(int arg1)
+{
+    minimumTrainingRange = arg1;
+}
+// Стартовая скорость обучения
+void SettingsDialog::on_doubleSpinBox_valueChanged(double arg1)
+{
+    startTrainingSpeed = arg1;
+}
+
+void SettingsDialog::on_doubleSpinBox_2_valueChanged(double arg1)
+{
+    endTrainingSpeed = arg1;
+}
+
+// Минимальный вес
+void SettingsDialog::on_doubleSpinBox_4_valueChanged(double arg1)
+{
+    minWeight = arg1;
+}
+
+void SettingsDialog::on_doubleSpinBox_3_valueChanged(double arg1)
+{
+    maxWeight = arg1;
+}
+
+void SettingsDialog::on_countIterationRadioButton_toggled(bool checked)
+{
+    ui->spinBox_3->setEnabled(checked);
+    if (checked)
+        stopPoint = ui->spinBox_3->value();
+    else
+        stopPoint = 999999;
+}
+
+void SettingsDialog::on_countErrorRadioButton_toggled(bool checked)
+{
+    ui->doubleSpinBox_5->setEnabled(checked);
+    if (checked)
+        stopPoint = ui->doubleSpinBox_5->value();
+    else
+        stopPoint = 0.0;
+}
+
+void SettingsDialog::on_fourShapeRadioButton_toggled(bool checked)
+{
+        hexOrSquare = !checked;
+}
+
+void SettingsDialog::on_sixShapeRadioButton_toggled(bool checked)
+{
+        hexOrSquare = checked;
+}
+
+void SettingsDialog::on_stepDemoRadioButton_toggled(bool checked)
+{
+    stepOrAfterTrain = checked;
+    ui->spinBox_9->setEnabled(checked);
+}
+
+void SettingsDialog::on_finishedDemoRadioButton_toggled(bool checked)
+{
+    stepOrAfterTrain = !checked;
+    ui->checkBox->setEnabled(checked);
+}
+
+void SettingsDialog::on_spinBox_8_valueChanged(int arg1)
+{
+    widthCell = arg1;
+}
+bool SettingsDialog::getStepOrAfterTrain() const
+{
+    return stepOrAfterTrain;
+}
+
+bool SettingsDialog::getHexOrSquare() const
+{
+    return hexOrSquare;
+}
+
+double SettingsDialog::getWidthCell() const
+{
+    return widthCell;
+}
+
+double SettingsDialog::getEndTrainingSpeed() const
+{
+    return endTrainingSpeed;
+}
+
+double SettingsDialog::getStartTrainingSpeed() const
+{
+    return startTrainingSpeed;
+}
+
+int SettingsDialog::getMaximumTrainingRange() const
+{
+    return maximumTrainingRange;
+}
+
+int SettingsDialog::getMinimumTrainingRange() const
+{
+    return minimumTrainingRange;
+}
+
+double SettingsDialog::getStopPoint() const
+{
+    return stopPoint;
+}
+
+double SettingsDialog::getMaxWeight() const
+{
+    return maxWeight;
+}
+
+double SettingsDialog::getMinWeight() const
+{
+    return minWeight;
+}
+
+int SettingsDialog::getCountAge() const
+{
+    return countAge;
+}
+
+int SettingsDialog::getCountColumnsOutputLayout() const
+{
+    return countColumnsOutputLayout;
+}
+
+int SettingsDialog::getCountRowsOutputLayout() const
+{
+    return countRowsOutputLayout;
+}
+
+vector<vector<double> > SettingsDialog::getTable() const
+{
+    return table;
+}
+
+vector<QString> SettingsDialog::getNameColumns() const
+{
+    return nameColumns;
+}
+
+vector<QString> SettingsDialog::getNameRows() const
+{
+    return nameRows;
+}
+
+
+void SettingsDialog::on_spinBox_9_valueChanged(int arg1)
+{
+    sizeStep = arg1;
+}
+int SettingsDialog::getSizeStep() const
+{
+    return sizeStep;
+}
+
+
+void SettingsDialog::on_checkBox_toggled(bool checked)
+{
+    visulization = checked;
+}
+bool SettingsDialog::getVisulization() const
+{
+    return visulization;
+}
+

@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->statusBar->showMessage("Готов к работе!");
 
-    ui->backToSettingsButton->setEnabled(false);
+    ui->nextStepButton->setEnabled(false);
     setDlg = new SettingsDialog(this);
 
     scene = new QGraphicsScene(this);
@@ -19,14 +19,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     timer = new QTimer(this);
     qDebug() << ui->graphicsView->width();
+    curIteration = 1;
 
     scene->setSceneRect(0,0,ui->graphicsView->width(),ui->graphicsView->height());
 
-     connect(setDlg,
-            SIGNAL(newNetwork(double,double,int,int,double,double,int,int,int,vector<vector<double> >)),
-            this,
-            SLOT(newNetwork(double,double,int,int,double,double,int,int,int,vector<vector<double> >)));
-    connect(timer, SIGNAL(timeout()), this, SLOT(changeHexagons()));
+    connect(setDlg, SIGNAL(closeWindow()),SLOT(newNetwork()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(changeItems()));
 }
 
 MainWindow::~MainWindow()
@@ -60,37 +58,53 @@ void MainWindow::nextStepButtonEnable(){
     ui->backToSettingsButton->setEnabled(true);
 }
 
-void MainWindow::backToSettingsButtonEnable(){
-    //SettingsDialog *settingsDlg = new SettingsDialog(this);
-    //if(settingsDlg->on_buildButton_clicked(true))
-    //{
-      //  ui->nextStepButton->setEnabled(true);
-        //ui->backToSettingsButton->setEnabled(true);
-    //}
-}
+void MainWindow::newNetwork(){
 
-void MainWindow::newNetwork(double maxSpeedTraining, double minSpeedTraining, int minRange, int maxRange, double minCoegWeight, double maxCoegWeight, int numAge, int numColumns, int numRows, vector<vector<double> > inputLayout){
+    this->numColumns = setDlg->getCountColumnsOutputLayout();
+    this->numRows = setDlg->getCountRowsOutputLayout();
+    this->inputLayout = setDlg->getTable();
+    this->widthCell = setDlg->getWidthCell();
+    this->countAge = setDlg->getCountAge();
+    this->minWeight = setDlg->getMinWeight();
+    this->maxWeight = setDlg->getMaxWeight();
+    this->stopPoint = setDlg->getStopPoint();
+    this->maximumTrainingRange = setDlg->getMaximumTrainingRange();
+    this->minimumTrainingRange = setDlg->getMinimumTrainingRange();
+    this->startTrainingSpeed = setDlg->getStartTrainingSpeed();
+    this->endTrainingSpeed = setDlg->getEndTrainingSpeed();
+    this->hexOrSquare = setDlg->getHexOrSquare();
+    this->stepOrAfterTrain = setDlg->getStepOrAfterTrain();
+    this->sizeStep = setDlg->getSizeStep();
+    this->visulization = setDlg->getVisulization();
 
-    network = new Network(maxSpeedTraining,
-                          minSpeedTraining,
-                          minRange,
-                          maxRange,
-                          minCoegWeight,
-                          maxCoegWeight,
-                          numAge,
+
+    network = new Network(startTrainingSpeed,
+                          endTrainingSpeed,
+                          minimumTrainingRange,
+                          maximumTrainingRange,
+                          minWeight,
+                          maxWeight,
+                          countAge,
                           numColumns,
                           numRows,
                           inputLayout);
 
-    this->numRows = numRows;
-    this->numColumns = numColumns;
-    numIteration = numAge * inputLayout.size();
-    widthCell = 10;
-    //addRectangles();
-    addHexagons();
+    numIteration = countAge * inputLayout.size();
+    ui->progressBar->setMinimum(1);
+    ui->progressBar->setMaximum(numIteration);
+
+    ui->nextStepButton->setEnabled(true);
+    curIteration = 1;
+
+    if (hexOrSquare)
+        addHexagons();
+    else
+        addRectangles();
 
 }
+
 void MainWindow::addHexagons(){
+    scene->clear();
     double varRows = 0;
     vectorHexagons.resize(numRows);
     for(int i = 0; i < numRows; i++){
@@ -119,6 +133,7 @@ void MainWindow::addHexagons(){
 }
 
 void MainWindow::addRectangles(){
+    scene->clear();
     int varRows = 0;
     vectorRectangles.resize(numRows);
     for (int i = 0; i < numRows; i++) {
@@ -133,18 +148,6 @@ void MainWindow::addRectangles(){
         varRows+=widthCell;
     }
 }
-void MainWindow::nextStep(){
-    if(numIteration > 0) {
-        network->nextStep();
-        qDebug() << "Iteration: " << numIteration;
-        qDebug() << "Age: " << network->getCurAge();
-
-
-        timer->start(1);
-        numIteration--;
-    }
-
-}
 
 void MainWindow::changeRectangles(){
     vectorColors = network->getW();
@@ -156,8 +159,6 @@ void MainWindow::changeRectangles(){
                                       vectorColors[i][j][2])));
         }
     }
-    numIteration--;
-    nextStep();
 }
 
 void MainWindow::changeHexagons(){
@@ -170,13 +171,78 @@ void MainWindow::changeHexagons(){
                                       vectorColors[i][j][2])));
         }
     }
-
-    numIteration--;
-    nextStep();
 }
-
 
 void MainWindow::on_nextStepButton_clicked()
 {
-    nextStep();
+    if (stepOrAfterTrain)
+        stepByStepCalc();
+    else {
+        ui->nextStepButton->setEnabled(false);
+        withoutStepCalc();
+    }
+}
+
+void MainWindow::stepByStepCalc(){
+    if ((curIteration+inputLayout.size()) >= numIteration)
+        lastIteration();
+    else {
+        int var = curIteration + sizeStep;
+
+        while (curIteration % var) {
+            network->nextStep();
+            ui->curAge->setText(QString::number(network->getCurAge() + 1));
+            ui->curIter->setText(QString::number(curIteration));
+            ui->curSpeedTraining->setText(QString::number(network->getCurSpeedTraining()));
+            ui->curRange->setText(QString::number(network->getCurRange()));
+            ui->progressBar->setValue(curIteration);
+            curIteration++;
+            if (curIteration == numIteration) {
+                ui->nextStepButton->setEnabled(false);
+                break;
+            }
+        }
+
+        if (hexOrSquare)
+            changeHexagons();
+        else
+            changeRectangles();
+    }
+}
+
+void MainWindow::withoutStepCalc(){
+    if (curIteration < numIteration-inputLayout.size()){
+
+        ui->curAge->setText(QString::number(network->getCurAge()));
+        ui->curIter->setText(QString::number(curIteration));
+        ui->curSpeedTraining->setText(QString::number(network->getCurSpeedTraining()));
+        ui->curRange->setText(QString::number(network->getCurRange()));
+        ui->progressBar->setValue(curIteration);
+
+        network->nextStep();
+        timer->start(1);
+    }
+    else
+        lastIteration();
+}
+
+void MainWindow::changeItems(){
+    if (hexOrSquare) {
+        if (visulization)
+            changeHexagons();
+        curIteration++;
+        withoutStepCalc();
+    }
+    else {
+        if (visulization)
+            changeRectangles();
+        curIteration++;
+        withoutStepCalc();
+    }
+}
+void MainWindow::lastIteration(){
+    if (hexOrSquare)
+        changeHexagons();
+    else
+        changeRectangles();
 }

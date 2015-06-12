@@ -17,13 +17,15 @@ SOURCES += main.cpp\
     instructiondialog.cpp \
     settingsdialog.cpp \
     network.cpp \
-    neuron.cpp
+    neuron.cpp \
+    converterinputdata.cpp
 
 HEADERS  += mainwindow.h \
     instructiondialog.h \
     settingsdialog.h \
     network.h \
-    neuron.h
+    neuron.h \
+    converterinputdata.h
 
 FORMS    += mainwindow.ui \
     instructiondialog.ui \

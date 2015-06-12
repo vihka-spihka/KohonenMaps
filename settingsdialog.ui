@@ -33,52 +33,82 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_35">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_5"/>
-   </item>
-   <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="inputSettings">
       <attribute name="title">
        <string>Данные</string>
       </attribute>
-      <widget class="QGroupBox" name="groupBox">
+      <widget class="QWidget" name="">
        <property name="geometry">
         <rect>
-         <x>9</x>
-         <y>9</y>
-         <width>601</width>
-         <height>181</height>
+         <x>10</x>
+         <y>0</y>
+         <width>571</width>
+         <height>551</height>
         </rect>
        </property>
-       <property name="title">
-        <string>Входные данные</string>
-       </property>
-       <widget class="QWidget" name="">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>30</y>
-          <width>561</width>
-          <height>141</height>
-         </rect>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_2">
-         <item row="0" column="0" rowspan="2">
-          <layout class="QVBoxLayout" name="verticalLayout_2">
-           <item>
-            <widget class="QLabel" name="label">
-             <property name="text">
-              <string>Выберите файл или введите входные данные вручную:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QGridLayout" name="gridLayout">
-             <item row="0" column="2" rowspan="2">
-              <spacer name="horizontalSpacer">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Входные данные</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="0" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_2">
+               <item>
+                <widget class="QLabel" name="label">
+                 <property name="text">
+                  <string>Выберите файл или введите входные данные вручную:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_8">
+                 <item>
+                  <widget class="QLabel" name="label_9">
+                   <property name="text">
+                    <string>Ввод из файла</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="chooseFileButton">
+                   <property name="maximumSize">
+                    <size>
+                     <width>75</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>Обзор</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_9">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_10">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -90,145 +120,114 @@
                </property>
               </spacer>
              </item>
-             <item row="1" column="0">
-              <widget class="QRadioButton" name="inputSelfRadioButton">
-               <property name="text">
-                <string>Ввод вручную:</string>
-               </property>
-               <attribute name="buttonGroup">
-                <string notr="true">inputButtonGroup</string>
-               </attribute>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QRadioButton" name="inputFromFileRadioButton">
-               <property name="text">
-                <string>Ввод из файла:</string>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-               <attribute name="buttonGroup">
-                <string notr="true">inputButtonGroup</string>
-               </attribute>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QPushButton" name="chooseFileButton">
-               <property name="maximumSize">
-                <size>
-                 <width>75</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>Обзор</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout">
              <item>
-              <widget class="QCheckBox" name="headlinesColomnsCheckBox">
-               <property name="text">
-                <string>использовать заголовки столбцов</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="headlinesRowCheckBox">
-               <property name="text">
-                <string>использовать столбец с информацией</string>
-               </property>
-              </widget>
+              <layout class="QVBoxLayout" name="verticalLayout">
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_3">
+                 <item>
+                  <widget class="QLabel" name="label_13">
+                   <property name="text">
+                    <string>Строки</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSpinBox" name="spinBox_4">
+                   <property name="minimum">
+                    <number>0</number>
+                   </property>
+                   <property name="maximum">
+                    <number>1000</number>
+                   </property>
+                   <property name="value">
+                    <number>0</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_7">
+                 <item>
+                  <widget class="QLabel" name="label_14">
+                   <property name="text">
+                    <string>Столбцы</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSpinBox" name="spinBox_5">
+                   <property name="maximum">
+                    <number>1000</number>
+                   </property>
+                   <property name="value">
+                    <number>0</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_2">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
              </item>
             </layout>
            </item>
           </layout>
-         </item>
-         <item row="0" column="2">
-          <spacer name="verticalSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="1" column="1">
-          <spacer name="horizontalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="1" column="2">
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <widget class="QPushButton" name="addColomnButton">
-             <property name="text">
-              <string>Добавить столбец</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="addRowButton">
-             <property name="text">
-              <string>Добавить строку</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="">
-       <property name="geometry">
-        <rect>
-         <x>-3</x>
-         <y>201</y>
-         <width>571</width>
-         <height>351</height>
-        </rect>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_4">
-        <item>
-         <widget class="QTableWidget" name="tableWidget"/>
+         </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
+         <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
-           <spacer name="horizontalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
+           <widget class="QTableWidget" name="tableWidget"/>
           </item>
           <item>
-           <widget class="QPushButton" name="nextButton1">
-            <property name="text">
-             <string>Далее &gt;&gt;</string>
-            </property>
-           </widget>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="nextButton1">
+              <property name="text">
+               <string>Далее &gt;&gt;</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>
@@ -251,7 +250,7 @@
        <property name="title">
         <string>Параметры сети</string>
        </property>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -261,10 +260,53 @@
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_7">
+         <item row="1" column="4">
+          <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+           <property name="maximum">
+            <double>10000000.000000000000000</double>
+           </property>
+           <property name="value">
+            <double>255.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QLabel" name="label_18">
+           <property name="text">
+            <string>Максимум сети</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="4">
+          <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
+           <property name="maximum">
+            <double>10000000.000000000000000</double>
+           </property>
+          </widget>
+         </item>
          <item row="1" column="1">
           <widget class="QSpinBox" name="spinBox_2">
            <property name="minimum">
             <number>2</number>
+           </property>
+           <property name="maximum">
+            <number>500</number>
+           </property>
+           <property name="value">
+            <number>20</number>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QSpinBox" name="spinBox">
+           <property name="minimum">
+            <number>2</number>
+           </property>
+           <property name="maximum">
+            <number>500</number>
+           </property>
+           <property name="value">
+            <number>20</number>
            </property>
           </widget>
          </item>
@@ -295,15 +337,41 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QSpinBox" name="spinBox">
-           <property name="minimum">
-            <number>2</number>
+         <item row="0" column="2">
+          <spacer name="horizontalSpacer_17">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="0" column="3">
+          <widget class="QLabel" name="label_17">
+           <property name="text">
+            <string>Минимум сети</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="2">
-          <spacer name="horizontalSpacer_17">
+         <item row="0" column="5">
+          <spacer name="horizontalSpacer_11">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="1" column="5">
+          <spacer name="horizontalSpacer_20">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -330,7 +398,7 @@
        <property name="title">
         <string>Параметры обучения</string>
        </property>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>15</x>
@@ -380,10 +448,13 @@
                <item>
                 <widget class="QDoubleSpinBox" name="doubleSpinBox">
                  <property name="maximum">
-                  <double>1.000000000000000</double>
+                  <double>0.990000000000000</double>
                  </property>
                  <property name="singleStep">
                   <double>0.050000000000000</double>
+                 </property>
+                 <property name="value">
+                  <double>0.900000000000000</double>
                  </property>
                 </widget>
                </item>
@@ -413,11 +484,17 @@
                </item>
                <item>
                 <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+                 <property name="minimum">
+                  <double>0.050000000000000</double>
+                 </property>
                  <property name="maximum">
-                  <double>1.000000000000000</double>
+                  <double>0.990000000000000</double>
                  </property>
                  <property name="singleStep">
                   <double>0.050000000000000</double>
+                 </property>
+                 <property name="value">
+                  <double>0.100000000000000</double>
                  </property>
                 </widget>
                </item>
@@ -485,6 +562,9 @@
                  <property name="maximum">
                   <number>100</number>
                  </property>
+                 <property name="value">
+                  <number>20</number>
+                 </property>
                 </widget>
                </item>
                <item>
@@ -518,6 +598,9 @@
                  </property>
                  <property name="maximum">
                   <number>100</number>
+                 </property>
+                 <property name="value">
+                  <number>1</number>
                  </property>
                 </widget>
                </item>
@@ -573,7 +656,7 @@
                <item>
                 <widget class="QRadioButton" name="countIterationRadioButton">
                  <property name="text">
-                  <string>По количеству итераций:</string>
+                  <string>По количеству эпох:</string>
                  </property>
                  <property name="checked">
                   <bool>true</bool>
@@ -589,6 +672,9 @@
                   <number>1</number>
                  </property>
                  <property name="maximum">
+                  <number>100000</number>
+                 </property>
+                 <property name="value">
                   <number>1000</number>
                  </property>
                 </widget>
@@ -682,7 +768,7 @@
         </layout>
        </widget>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -721,13 +807,6 @@
         </item>
        </layout>
       </widget>
-      <zorder>nextButton2</zorder>
-      <zorder>backButton1</zorder>
-      <zorder>groupBox_2</zorder>
-      <zorder>groupBox_3</zorder>
-      <zorder>horizontalSpacer_6</zorder>
-      <zorder>horizontalSpacer_4</zorder>
-      <zorder></zorder>
      </widget>
      <widget class="QWidget" name="displaySettings">
       <attribute name="title">
@@ -745,17 +824,17 @@
        <property name="title">
         <string>Отображение</string>
        </property>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>10</x>
           <y>30</y>
-          <width>551</width>
-          <height>221</height>
+          <width>554</width>
+          <height>234</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_4">
-         <item row="0" column="2">
+         <item row="0" column="0">
           <layout class="QVBoxLayout" name="verticalLayout_18">
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_26">
@@ -778,6 +857,26 @@
                 </size>
                </property>
               </spacer>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_11">
+               <property name="text">
+                <string>Размер ячейки</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="spinBox_8">
+               <property name="minimum">
+                <number>5</number>
+               </property>
+               <property name="maximum">
+                <number>30</number>
+               </property>
+               <property name="value">
+                <number>10</number>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -844,7 +943,7 @@
            </item>
           </layout>
          </item>
-         <item row="1" column="2">
+         <item row="1" column="0">
           <layout class="QVBoxLayout" name="verticalLayout_23">
            <item>
             <widget class="Line" name="line_3">
@@ -907,6 +1006,23 @@
                  </property>
                 </spacer>
                </item>
+               <item>
+                <widget class="QLabel" name="label_19">
+                 <property name="text">
+                  <string>Размер шага</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="spinBox_9">
+                 <property name="maximum">
+                  <number>10000</number>
+                 </property>
+                 <property name="value">
+                  <number>100</number>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </item>
              <item>
@@ -934,196 +1050,23 @@
                  </property>
                 </spacer>
                </item>
+               <item>
+                <widget class="QCheckBox" name="checkBox">
+                 <property name="text">
+                  <string>Интерактивное изменение карты</string>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </item>
             </layout>
            </item>
           </layout>
-         </item>
-         <item row="0" column="0" rowspan="2">
-          <layout class="QVBoxLayout" name="verticalLayout_21">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_31">
-             <item>
-              <widget class="QLabel" name="label_11">
-               <property name="text">
-                <string>Отображение карты Кохонена:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_41">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_19">
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_30">
-               <item>
-                <widget class="QRadioButton" name="rgbColorRadioButton">
-                 <property name="text">
-                  <string>Цветная</string>
-                 </property>
-                 <property name="checked">
-                  <bool>true</bool>
-                 </property>
-                 <attribute name="buttonGroup">
-                  <string notr="true">colorButtonGroup</string>
-                 </attribute>
-                </widget>
-               </item>
-               <item>
-                <spacer name="horizontalSpacer_37">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_29">
-               <item>
-                <widget class="QRadioButton" name="b_wColorRadioButton">
-                 <property name="text">
-                  <string>Черно-белая</string>
-                 </property>
-                 <attribute name="buttonGroup">
-                  <string notr="true">colorButtonGroup</string>
-                 </attribute>
-                </widget>
-               </item>
-               <item>
-                <spacer name="horizontalSpacer_38">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_20">
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_27">
-               <item>
-                <widget class="QCheckBox" name="borderCellCheckBox">
-                 <property name="text">
-                  <string>Границы ячеек</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="horizontalSpacer_39">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_28">
-               <item>
-                <widget class="QCheckBox" name="borderClusterCheckBox">
-                 <property name="text">
-                  <string>Границы кластеров</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="horizontalSpacer_40">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <spacer name="verticalSpacer_2">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </item>
-         <item row="0" column="1">
-          <spacer name="horizontalSpacer_45">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="1" column="1">
-          <spacer name="horizontalSpacer_46">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
          </item>
         </layout>
        </widget>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -1173,8 +1116,7 @@
   <buttongroup name="colorButtonGroup"/>
   <buttongroup name="inputButtonGroup"/>
   <buttongroup name="stopPointButtonGroup"/>
-  <buttongroup name="shapeButtonGroup"/>
   <buttongroup name="demoButtonGroup"/>
-  <buttongroup name="countClustersButtonGroup"/>
+  <buttongroup name="shapeButtonGroup"/>
  </buttongroups>
 </ui>

@@ -2,7 +2,22 @@
 #define SETTINGSDIALOG_H
 
 #include <QDialog>
-#include <vector>
+#include <QTabWidget>
+#include <QTableWidget>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QButtonGroup>
+#include <QFile>
+#include <QFileDialog>
+#include <QInputDialog>
+#include <QTextStream>
+#include <QMessageBox>
+#include "ui_settingsdialog.h"
+#include "vector"
+#include <QDebug>
+#include "converterinputdata.h"
+#include <Exception>
+
 using namespace std;
 
 namespace Ui {
@@ -15,33 +30,48 @@ class SettingsDialog : public QDialog
 
 public:
     explicit SettingsDialog(QWidget *parent = 0);
+
     ~SettingsDialog();
 
-signals:
-    void newNetwork (double maxSpeedTraining,
-                    double minSpeedTraining,
-                    int minRange,
-                    int maxRange,
-                    double minCoegWeight,
-                    double maxCoegWeight,
-                    int numAge,
-                    int numColumns,
-                    int numRows,
-                    vector<vector<double> > inputLayout);
+    vector<QString> getNameRows() const;
+
+    vector<QString> getNameColumns() const;
+
+    vector<vector<double> > getTable() const;
+
+    int getCountRowsOutputLayout() const;
+
+    int getCountColumnsOutputLayout() const;
+
+    int getCountAge() const;
+
+    double getMinWeight() const;
+
+    double getMaxWeight() const;
+
+    double getStopPoint() const;
+
+    int getMinimumTrainingRange() const;
+
+    int getMaximumTrainingRange() const;
+
+    double getStartTrainingSpeed() const;
+
+    double getEndTrainingSpeed() const;
+
+    double getWidthCell() const;
+
+    bool getHexOrSquare() const;
+
+    bool getStepOrAfterTrain() const;
+
+    int getSizeStep() const;
+
+    bool getVisulization() const;
 
 private slots:
 
-    void on_inputFromFileRadioButton_clicked();
-
-    void on_inputSelfRadioButton_clicked();
-
-    void on_addColomnButton_clicked();
-
-    void on_addRowButton_clicked();
-
     void on_chooseFileButton_clicked();
-
-    void on_headlinesColomnsCheckBox_clicked();
 
     void on_nextButton1_clicked();
 
@@ -53,11 +83,82 @@ private slots:
 
     void on_buildButton_clicked();
 
-public slots:
-    bool on_buildButton_clicked(bool);
+    void fillingTableWidget(); // функция заполняет таблицу, если ввод данных был из файла
+
+    void on_spinBox_5_valueChanged(int arg1); // SetRowsCount
+
+    void on_spinBox_4_valueChanged(int arg1); //SetColumnsCount
+
+    void on_spinBox_valueChanged(int arg1);
+
+    void on_spinBox_2_valueChanged(int arg1);
+
+    void on_spinBox_3_valueChanged(int arg1);
+
+    void on_doubleSpinBox_5_valueChanged(double arg1);
+
+    void on_spinBox_6_valueChanged(int arg1);
+
+    void on_spinBox_7_valueChanged(int arg1);
+
+    void on_doubleSpinBox_valueChanged(double arg1);
+
+    void on_doubleSpinBox_2_valueChanged(double arg1);
+
+    void on_doubleSpinBox_4_valueChanged(double arg1);
+
+    void on_doubleSpinBox_3_valueChanged(double arg1);
+
+    void on_countIterationRadioButton_toggled(bool checked);
+
+    void on_countErrorRadioButton_toggled(bool checked);
+
+    void on_fourShapeRadioButton_toggled(bool checked);
+
+    void on_sixShapeRadioButton_toggled(bool checked);
+
+    void on_stepDemoRadioButton_toggled(bool checked);
+
+    void on_finishedDemoRadioButton_toggled(bool checked);
+
+    void on_spinBox_8_valueChanged(int arg1);
+    void on_spinBox_9_valueChanged(int arg1);
+
+    void on_checkBox_toggled(bool checked);
+
+signals:
+    void closeWindow();
 
 private:
     Ui::SettingsDialog *ui;
+
+    vector <QString> nameRows;
+    vector <QString> nameColumns;
+    vector < vector <double> > table;
+
+    int countRowsOutputLayout;
+    int countColumnsOutputLayout;
+    int countAge;
+    double minWeight;
+    double maxWeight;
+    double stopPoint;
+    int minimumTrainingRange;
+    int maximumTrainingRange;
+    double startTrainingSpeed;
+    double endTrainingSpeed;
+    double widthCell;
+    int sizeStep;
+
+    bool hexOrSquare; // Шестиугольная или прямоугольная карта будет. 1 - hex, 0 - square
+    bool stepOrAfterTrain; // Пошагово или после обучения результат. 1 - step, 0 - after train
+    bool visulization; // Показ изменений на карте при обучении
+
+    void convertTableToVectors(); // конвертация таблицы в вектора
+
+    void connects();
+    void initValues();
+
+
 };
 
 #endif // SETTINGSDIALOG_H
