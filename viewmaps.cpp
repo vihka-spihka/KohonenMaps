@@ -1,13 +1,16 @@
-#include "viewtriplemaps.h"
+#include "viewmaps.h"
 
-viewMaps::viewMaps(QWidget *parent)
+viewMaps::viewMaps(QWidget *parent, QGraphicsView *view)
 {
     this->setParent(parent);
-    this->scene = new QGraphicsScene(this);
-    this->setScene(this->scene);
+    this->scene = new QGraphicsScene();
+    view->setScene(this->scene);
+
     this->widthCell = 5;
     this->countColumns = 0;
+
     this->countRows = 0;
+
     this->viewHexagons = false;
     this->viewRectangles = true;
 }
@@ -82,8 +85,7 @@ void viewMaps::updateWidthCellsRectangles(){
                         varRows,
                         varColumns,
                         widthCell,
-                        widthCell,
-                        QPen(Qt::NoPen));
+                        widthCell);
 
             varColumns+=widthCell;
         }

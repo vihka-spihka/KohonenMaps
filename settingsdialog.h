@@ -16,7 +16,6 @@
 #include "vector"
 #include <QDebug>
 #include "converterinputdata.h"
-#include <Exception>
 
 using namespace std;
 

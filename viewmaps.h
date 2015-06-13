@@ -5,13 +5,15 @@
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 #include <QGraphicsPolygonItem>
+#include <QObject>
 #include <vector>
 using namespace std;
 
-class viewMaps : public QGraphicsView
+class viewMaps : public QWidget
 {
+
 public:
-    viewMaps();
+    viewMaps(QWidget *parent, QGraphicsView *view);
     
 public slots:
 
@@ -26,10 +28,14 @@ public slots:
     
 private:
 
-    void updateRectangles();    // Обноавление прямоугольников
+    void updateRectangles();    // Обновление прямоугольников
     void updateHexagons();      // Обновление шестиугольников
     void addRectangles();       // Добавление прямоугольников
     void addHexagons();         // Добавление шестиугольников
+
+    void updateWidthCells();
+    void updateWidthCellsRectangles();
+    void updateWidthCellsHexagons();
 
     int countRows;              // Количество строк
     int countColumns;           // Количество столбцов

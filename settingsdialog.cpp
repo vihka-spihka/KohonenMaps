@@ -282,7 +282,6 @@ bool SettingsDialog::getHexOrSquare() const
     return hexOrSquare;
 }
 
-
 double SettingsDialog::getEndTrainingSpeed() const
 {
     return endTrainingSpeed;
@@ -348,21 +347,21 @@ vector<QString> SettingsDialog::getNameRows() const
     return nameRows;
 }
 
-
 void SettingsDialog::on_spinBox_9_valueChanged(int arg1)
 {
     sizeStep = arg1;
 }
+
 int SettingsDialog::getSizeStep() const
 {
     return sizeStep;
 }
 
-
 void SettingsDialog::on_checkBox_toggled(bool checked)
 {
     visulization = checked;
 }
+
 bool SettingsDialog::getVisulization() const
 {
     return visulization;

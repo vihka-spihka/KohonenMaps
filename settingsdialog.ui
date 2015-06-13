@@ -1084,8 +1084,7 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="demoButtonGroup"/>
   <buttongroup name="shapeButtonGroup"/>
-  <buttongroup name="stopPointButtonGroup"/>
+  <buttongroup name="demoButtonGroup"/>
  </buttongroups>
 </ui>

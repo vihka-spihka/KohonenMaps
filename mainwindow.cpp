@@ -1,18 +1,21 @@
-#include <QMessageBox>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
-#include <QColor>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
-    ui->statusBar->showMessage("Готов к работе!");
 
-    ui->nextStepButton->setEnabled(false);
-    setDlg = new SettingsDialog(this);
+    ui->setupUi(this);
+    view = new viewMaps(this, ui->gv_maps);
+
+    ui->b_nextStep->setEnabled(false);
+    ui->b_pause->setEnabled(false);
+
+    connects();
+
+    /*ui->nextStepButton->setEnabled(false);
 
     scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
@@ -25,7 +28,97 @@ MainWindow::MainWindow(QWidget *parent) :
     scene->setSceneRect(0,0,ui->graphicsView->width(),ui->graphicsView->height());
 
     connect(setDlg, SIGNAL(closeWindow()),SLOT(newNetwork()));
-    connect(timer, SIGNAL(timeout()), this, SLOT(changeItems()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(changeItems()));*/
+}
+
+void MainWindow::connects(){
+    
+    connect(ui->b_nextStep, SIGNAL(clicked(bool)), SLOT(slotClicked_b_nextStep()));
+    connect(ui->b_pause, SIGNAL(clicked(bool)), SLOT(slotClicked_b_pause()));
+    connect(ui->b_settings, SIGNAL(clicked(bool)), SLOT(slotClicked_b_settings()));
+    connect(ui->b_settings, SIGNAL(clicked(bool)),
+}
+
+void MainWindow::slotClicked_b_pause(){
+    emit signalClicked_b_pause();
+}
+
+void MainWindow::slotClicked_b_nextStep(){
+    
+    emit signalClicked_b_nextStep();
+}
+
+void MainWindow::slotClicked_b_settings(){
+    emit signalClicked_b_settings();
+}
+
+void MainWindow::set_l_curAge(QString str) {
+    ui->l_curAge->setText(str);
+}
+
+void MainWindow::set_l_curIteration(QString str){
+    ui->l_curIteration->setText(str);
+}
+
+void MainWindow::set_l_curRange(QString str){
+    ui->l_curRange->setText(str);
+}
+
+void MainWindow::set_l_curTrainingSpeed(QString str){
+    ui->l_CurrentSpeedTraining->setText(str);
+}
+
+void MainWindow::set_l_nameInput(QString str){
+    ui->l_nameInput->setText(str);
+}
+
+void MainWindow::set_l_coordX(QString str)
+{
+    ui->l_coordX->setText(str);
+}
+
+void MainWindow::set_l_coordY(QString str){
+    ui->l_coordY->setText(str);
+}
+
+void MainWindow::set_l_nameFirstAttr(QString str){
+    ui->l_nameFirstAttr->setText(str);
+}
+
+void MainWindow::set_l_nameSecondAttr(QString str){
+    ui->l_nameSecondAttr->setText(str);
+}
+
+void MainWindow::set_l_nameThirdAttr(QString str){
+    ui->l_nameThirdAttr->setText(str);
+}
+
+void MainWindow::set_l_valueFirstAttr(QString str){
+    ui->l_valueFirstAttr->setText(str);
+}
+
+void MainWindow::set_l_valueSecondAttr(QString str){
+    ui->l_valueSecondAttr->setText(str);
+}
+
+void MainWindow::set_l_valueThirdAttr(QString str){
+    ui->l_valueThirdAttr->setText(str);
+}
+
+void MainWindow::setEnabled_b_nextStep(bool checked){
+    ui->b_nextStep->setEnabled(checked);
+}
+
+void MainWindow::setEnabled_b_pause(bool checked){
+    ui->b_pause->setEnabled(checked);
+}
+
+void MainWindow::setText_b_nextStep(QString str){
+    ui->b_nextStep->setText(str);
+}
+
+viewMaps* MainWindow::getGVMaps(){
+    return view;
 }
 
 MainWindow::~MainWindow()
@@ -33,6 +126,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+/*
 void MainWindow::on_action_about_triggered()    //показать справку
 {
     QMessageBox::information(this,"О программе","<h4>Выпускная квалификационная работа на тему: </h4><i>Разработка программного эмулятора карты Кохонена для использования в учебном процессе.</i>\n<b>Автор:</b> Князева В.К., ФКТИ, группа 1303");
@@ -314,4 +408,4 @@ void MainWindow::on_pushButton_clicked()
     timer->stop();
     ui->nextStepButton->setEnabled(true);
     ui->pushButton->setEnabled(false);
-}
+}*/
