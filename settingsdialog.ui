@@ -41,7 +41,7 @@
       <attribute name="title">
        <string>Данные</string>
       </attribute>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -654,16 +654,10 @@
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_14">
                <item>
-                <widget class="QRadioButton" name="countIterationRadioButton">
+                <widget class="QLabel" name="label_11">
                  <property name="text">
-                  <string>По количеству эпох:</string>
+                  <string>Количество эпох</string>
                  </property>
-                 <property name="checked">
-                  <bool>true</bool>
-                 </property>
-                 <attribute name="buttonGroup">
-                  <string notr="true">stopPointButtonGroup</string>
-                 </attribute>
                 </widget>
                </item>
                <item>
@@ -697,13 +691,10 @@
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_15">
                <item>
-                <widget class="QRadioButton" name="countErrorRadioButton">
+                <widget class="QLabel" name="label_20">
                  <property name="text">
-                  <string>По значению ошибки:</string>
+                  <string>Значение точки останова</string>
                  </property>
-                 <attribute name="buttonGroup">
-                  <string notr="true">stopPointButtonGroup</string>
-                 </attribute>
                 </widget>
                </item>
                <item>
@@ -857,26 +848,6 @@
                 </size>
                </property>
               </spacer>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_11">
-               <property name="text">
-                <string>Размер ячейки</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QSpinBox" name="spinBox_8">
-               <property name="minimum">
-                <number>5</number>
-               </property>
-               <property name="maximum">
-                <number>30</number>
-               </property>
-               <property name="value">
-                <number>10</number>
-               </property>
-              </widget>
              </item>
             </layout>
            </item>
@@ -1113,10 +1084,8 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="colorButtonGroup"/>
-  <buttongroup name="inputButtonGroup"/>
-  <buttongroup name="stopPointButtonGroup"/>
   <buttongroup name="demoButtonGroup"/>
   <buttongroup name="shapeButtonGroup"/>
+  <buttongroup name="stopPointButtonGroup"/>
  </buttongroups>
 </ui>

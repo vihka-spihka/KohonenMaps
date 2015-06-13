@@ -18,14 +18,16 @@ SOURCES += main.cpp\
     settingsdialog.cpp \
     network.cpp \
     neuron.cpp \
-    converterinputdata.cpp
+    converterinputdata.cpp \
+    viewtriplemaps.cpp
 
 HEADERS  += mainwindow.h \
     instructiondialog.h \
     settingsdialog.h \
     network.h \
     neuron.h \
-    converterinputdata.h
+    converterinputdata.h \
+    viewtriplemaps.h
 
 FORMS    += mainwindow.ui \
     instructiondialog.ui \

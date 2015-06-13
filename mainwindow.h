@@ -8,6 +8,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 #include <vector>
+#include <QScrollBar>
 
 namespace Ui {
 class MainWindow;
@@ -37,21 +38,29 @@ private slots:
     void on_nextStepButton_clicked();
 
     void addRectangles();
+
     void changeRectangles();
+
     void addHexagons();
 
     void changeHexagons();
 
     void stepByStepCalc();
+
     void withoutStepCalc();
 
     void changeItems();
+
+    void on_backToSettingsButton_clicked();
+
+    void on_pushButton_clicked();
 
 signals:
 
 private:
 
     void lastIteration();
+    void resizeWidthCells();
 
     Ui::MainWindow *ui;
     Network* network;
@@ -85,6 +94,7 @@ private:
     bool hexOrSquare; // Шестиугольная или прямоугольная карта будет. 1 - hex, 0 - square
     bool stepOrAfterTrain; // Пошагово или после обучения результат. 1 - step, 0 - after train
     bool visulization; // Визуализация при непрерывном вычислении
+    bool pause;
 
 };
 

@@ -27,8 +27,6 @@ int ConverterInputData::determiningFormatFile(){
         else
             var.push_front(fileName[i]);
     }
-
-    qDebug () << var;
     if (var == "txt")
         return 1;
     else

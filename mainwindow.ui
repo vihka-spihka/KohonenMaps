@@ -27,7 +27,14 @@
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="1" column="0">
+      <item row="0" column="0">
+       <widget class="QGraphicsView" name="graphicsView">
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
        <layout class="QGridLayout" name="gridLayout">
         <item row="1" column="6">
          <widget class="QProgressBar" name="progressBar">
@@ -42,33 +49,92 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="7">
-         <spacer name="horizontalSpacer_2">
+        <item row="0" column="1">
+         <widget class="QLabel" name="curIter">
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <spacer name="horizontalSpacer_5">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
+            <width>20</width>
             <height>20</height>
            </size>
           </property>
          </spacer>
         </item>
-        <item row="0" column="7" colspan="2">
-         <spacer name="horizontalSpacer">
+        <item row="0" column="3">
+         <widget class="QLabel" name="l_cur">
+          <property name="text">
+           <string>Эпоха</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="11">
+         <widget class="QPushButton" name="backToSettingsButton">
+          <property name="maximumSize">
+           <size>
+            <width>200</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Настройки</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="5">
+         <spacer name="horizontalSpacer_4">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
+            <width>20</width>
             <height>20</height>
            </size>
           </property>
          </spacer>
         </item>
-        <item row="1" column="8" colspan="2">
+        <item row="1" column="2">
+         <spacer name="horizontalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>Радиус</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="10" colspan="2">
          <widget class="QPushButton" name="nextStepButton">
           <property name="enabled">
            <bool>true</bool>
@@ -93,38 +159,6 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="9">
-         <widget class="QPushButton" name="backToSettingsButton">
-          <property name="maximumSize">
-           <size>
-            <width>200</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Настройки</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="4">
-         <widget class="QLabel" name="curAge">
-          <property name="minimumSize">
-           <size>
-            <width>40</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>40</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="5">
          <spacer name="horizontalSpacer_3">
           <property name="orientation">
@@ -137,13 +171,6 @@
            </size>
           </property>
          </spacer>
-        </item>
-        <item row="1" column="3">
-         <widget class="QLabel" name="label_7">
-          <property name="text">
-           <string>Радиус</string>
-          </property>
-         </widget>
         </item>
         <item row="1" column="4">
          <widget class="QLabel" name="curRange">
@@ -164,24 +191,18 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="curIter">
-          <property name="minimumSize">
+        <item row="1" column="8">
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
            <size>
             <width>40</width>
-            <height>0</height>
+            <height>20</height>
            </size>
           </property>
-          <property name="maximumSize">
-           <size>
-            <width>40</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string> </string>
-          </property>
-         </widget>
+         </spacer>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="l_CurrentSpeedTraining">
@@ -190,32 +211,24 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="6">
-         <widget class="QLabel" name="label">
+        <item row="0" column="4">
+         <widget class="QLabel" name="curAge">
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
            <string/>
           </property>
          </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="l_CurrentIter">
-          <property name="text">
-           <string>Итерация</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <spacer name="horizontalSpacer_6">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item row="1" column="1">
          <widget class="QLabel" name="curSpeedTraining">
@@ -232,51 +245,38 @@
            </size>
           </property>
           <property name="text">
-           <string> </string>
+           <string/>
           </property>
          </widget>
         </item>
-        <item row="1" column="5">
-         <spacer name="horizontalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="0" column="3">
-         <widget class="QLabel" name="l_cur">
+        <item row="0" column="0">
+         <widget class="QLabel" name="l_CurrentIter">
           <property name="text">
-           <string>Эпоха</string>
+           <string>Итерация</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
-         <spacer name="horizontalSpacer_5">
+        <item row="0" column="8" colspan="3">
+         <spacer name="horizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>20</width>
+            <width>40</width>
             <height>20</height>
            </size>
           </property>
          </spacer>
+        </item>
+        <item row="1" column="9">
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>Пауза</string>
+          </property>
+         </widget>
         </item>
        </layout>
-      </item>
-      <item row="0" column="0">
-       <widget class="QGraphicsView" name="graphicsView">
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-        </property>
-       </widget>
       </item>
      </layout>
     </item>

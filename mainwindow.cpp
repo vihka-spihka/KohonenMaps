@@ -16,9 +16,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
+    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 
     timer = new QTimer(this);
-    qDebug() << ui->graphicsView->width();
     curIteration = 1;
 
     scene->setSceneRect(0,0,ui->graphicsView->width(),ui->graphicsView->height());
@@ -63,7 +64,6 @@ void MainWindow::newNetwork(){
     this->numColumns = setDlg->getCountColumnsOutputLayout();
     this->numRows = setDlg->getCountRowsOutputLayout();
     this->inputLayout = setDlg->getTable();
-    this->widthCell = setDlg->getWidthCell();
     this->countAge = setDlg->getCountAge();
     this->minWeight = setDlg->getMinWeight();
     this->maxWeight = setDlg->getMaxWeight();
@@ -76,6 +76,8 @@ void MainWindow::newNetwork(){
     this->stepOrAfterTrain = setDlg->getStepOrAfterTrain();
     this->sizeStep = setDlg->getSizeStep();
     this->visulization = setDlg->getVisulization();
+
+
 
 
     network = new Network(startTrainingSpeed,
@@ -95,12 +97,59 @@ void MainWindow::newNetwork(){
 
     ui->nextStepButton->setEnabled(true);
     curIteration = 1;
+    pause = false;
+
+    if (stepOrAfterTrain) {
+        ui->nextStepButton->setText("Следующий шаг");
+        ui->pushButton->setEnabled(false);
+    }
+    else {
+        ui->nextStepButton->setText("Старт");
+        ui->pushButton->setEnabled(true);
+    }
+
+    resizeWidthCells();
 
     if (hexOrSquare)
         addHexagons();
     else
         addRectangles();
 
+}
+
+void MainWindow::resizeWidthCells(){
+
+    double var_h = (this->height()-100)/numRows;
+    double var_v = (this->width()-20)/numColumns;
+
+    double min_w, max_w;
+
+    if (var_h > var_v) {
+        min_w = var_v;
+        max_w = var_h;
+    }
+    else {
+        max_w = var_v;
+        min_w = var_h;
+    }
+
+    this->widthCell = min_w;
+    double iterator = (max_w-min_w)/100;
+
+    for (double value = min_w; value < max_w; value+=iterator){
+
+
+        double temp_length_height = value*numColumns;
+        double temp_length_width = value*numRows;
+
+        double diff_height = (this->height()-100) - temp_length_height;
+        double diff_width = (this->width()-20) - temp_length_width;
+
+        if (diff_height <= 0 || diff_width <= 0) {
+            this->widthCell = value;
+            break;
+        }
+    }
 }
 
 void MainWindow::addHexagons(){
@@ -130,6 +179,7 @@ void MainWindow::addHexagons(){
         }
         varRows+=2*widthCell/3;
     }
+    scene->setSceneRect(0,0,widthCell*numColumns, widthCell*numRows);
 }
 
 void MainWindow::addRectangles(){
@@ -141,12 +191,12 @@ void MainWindow::addRectangles(){
         vectorRectangles[i].resize(numColumns);
         for(int j = 0; j < numColumns; j++){
             vectorRectangles[i][j] = scene->addRect(varRows, varColumns, widthCell, widthCell, QPen(Qt::NoPen),QBrush(Qt::red));
-            //vectorRectangles[i][j]->setPen(QPen(Qt::black, 0, Qt::SolidLine, Qt::SquareCap, Qt::RoundJoin));
 
             varColumns+=widthCell;
         }
         varRows+=widthCell;
     }
+    scene->setSceneRect(0,0,widthCell*numColumns, widthCell*numRows);
 }
 
 void MainWindow::changeRectangles(){
@@ -162,6 +212,7 @@ void MainWindow::changeRectangles(){
 }
 
 void MainWindow::changeHexagons(){
+    connect(this, SIGNAL())
     vectorColors = network->getW();
     for (int i = 0; i < numRows; i++) {
         for(int j = 0; j < numColumns; j++){
@@ -179,20 +230,22 @@ void MainWindow::on_nextStepButton_clicked()
         stepByStepCalc();
     else {
         ui->nextStepButton->setEnabled(false);
+        ui->pushButton->setEnabled(true);
+        pause = false;
         withoutStepCalc();
     }
 }
 
 void MainWindow::stepByStepCalc(){
-    if ((curIteration+inputLayout.size()) >= numIteration)
+    if (curIteration >= numIteration-inputLayout.size())
         lastIteration();
     else {
         int var = curIteration + sizeStep;
 
         while (curIteration % var) {
             network->nextStep();
-            ui->curAge->setText(QString::number(network->getCurAge() + 1));
-            ui->curIter->setText(QString::number(curIteration));
+            ui->curAge->setText(QString::number(network->getCurAge() + 1) + "/" +QString::number(countAge));
+            ui->curIter->setText(QString::number(curIteration)+"/"+QString::number(numIteration));
             ui->curSpeedTraining->setText(QString::number(network->getCurSpeedTraining()));
             ui->curRange->setText(QString::number(network->getCurRange()));
             ui->progressBar->setValue(curIteration);
@@ -211,10 +264,10 @@ void MainWindow::stepByStepCalc(){
 }
 
 void MainWindow::withoutStepCalc(){
-    if (curIteration < numIteration-inputLayout.size()){
+    if (curIteration < numIteration-inputLayout.size() && !pause){
 
-        ui->curAge->setText(QString::number(network->getCurAge()));
-        ui->curIter->setText(QString::number(curIteration));
+        ui->curAge->setText(QString::number(network->getCurAge() + 1) + "/" +QString::number(countAge));
+        ui->curIter->setText(QString::number(curIteration)+"/"+QString::number(numIteration));
         ui->curSpeedTraining->setText(QString::number(network->getCurSpeedTraining()));
         ui->curRange->setText(QString::number(network->getCurRange()));
         ui->progressBar->setValue(curIteration);
@@ -240,9 +293,25 @@ void MainWindow::changeItems(){
         withoutStepCalc();
     }
 }
+
 void MainWindow::lastIteration(){
+    ui->pushButton->setEnabled(false);
+    ui->nextStepButton->setEnabled(false);
     if (hexOrSquare)
         changeHexagons();
     else
         changeRectangles();
+}
+
+void MainWindow::on_backToSettingsButton_clicked()
+{
+    setDlg->show();
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    pause = true;
+    timer->stop();
+    ui->nextStepButton->setEnabled(true);
+    ui->pushButton->setEnabled(false);
 }

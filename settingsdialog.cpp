@@ -166,8 +166,7 @@ void SettingsDialog::initValues(){
     startTrainingSpeed = 0.9;
     minWeight = 0;
     maxWeight = 255;
-    widthCell = 5;
-    hexOrSquare = true;
+    hexOrSquare = false;
     stepOrAfterTrain = true;
     sizeStep = 100;
     visulization = false;
@@ -251,24 +250,6 @@ void SettingsDialog::on_doubleSpinBox_3_valueChanged(double arg1)
     maxWeight = arg1;
 }
 
-void SettingsDialog::on_countIterationRadioButton_toggled(bool checked)
-{
-    ui->spinBox_3->setEnabled(checked);
-    if (checked)
-        stopPoint = ui->spinBox_3->value();
-    else
-        stopPoint = 999999;
-}
-
-void SettingsDialog::on_countErrorRadioButton_toggled(bool checked)
-{
-    ui->doubleSpinBox_5->setEnabled(checked);
-    if (checked)
-        stopPoint = ui->doubleSpinBox_5->value();
-    else
-        stopPoint = 0.0;
-}
-
 void SettingsDialog::on_fourShapeRadioButton_toggled(bool checked)
 {
         hexOrSquare = !checked;
@@ -291,10 +272,6 @@ void SettingsDialog::on_finishedDemoRadioButton_toggled(bool checked)
     ui->checkBox->setEnabled(checked);
 }
 
-void SettingsDialog::on_spinBox_8_valueChanged(int arg1)
-{
-    widthCell = arg1;
-}
 bool SettingsDialog::getStepOrAfterTrain() const
 {
     return stepOrAfterTrain;
@@ -305,10 +282,6 @@ bool SettingsDialog::getHexOrSquare() const
     return hexOrSquare;
 }
 
-double SettingsDialog::getWidthCell() const
-{
-    return widthCell;
-}
 
 double SettingsDialog::getEndTrainingSpeed() const
 {

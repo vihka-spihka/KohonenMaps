@@ -109,10 +109,6 @@ private slots:
 
     void on_doubleSpinBox_3_valueChanged(double arg1);
 
-    void on_countIterationRadioButton_toggled(bool checked);
-
-    void on_countErrorRadioButton_toggled(bool checked);
-
     void on_fourShapeRadioButton_toggled(bool checked);
 
     void on_sixShapeRadioButton_toggled(bool checked);
@@ -121,7 +117,6 @@ private slots:
 
     void on_finishedDemoRadioButton_toggled(bool checked);
 
-    void on_spinBox_8_valueChanged(int arg1);
     void on_spinBox_9_valueChanged(int arg1);
 
     void on_checkBox_toggled(bool checked);
@@ -146,7 +141,6 @@ private:
     int maximumTrainingRange;
     double startTrainingSpeed;
     double endTrainingSpeed;
-    double widthCell;
     int sizeStep;
 
     bool hexOrSquare; // Шестиугольная или прямоугольная карта будет. 1 - hex, 0 - square
