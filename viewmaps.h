@@ -1,5 +1,5 @@
-#ifndef VIEWTRIPLEMAPS_H
-#define VIEWTRIPLEMAPS_H
+#ifndef VIEWMAPS_H
+#define VIEWMAPS_H
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
@@ -43,4 +43,4 @@ private:
     QGraphicsScene* scene;                              // Сцена
 };
 
-#endif // VIEWTRIPLEMAPS_H
+#endif // VIEWMAPS_H

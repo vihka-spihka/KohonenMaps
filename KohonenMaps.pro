@@ -14,23 +14,22 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    instructiondialog.cpp \
     settingsdialog.cpp \
     network.cpp \
     neuron.cpp \
     converterinputdata.cpp \
-    viewtriplemaps.cpp
+    controllermaps.cpp \
+    viewmaps.cpp
 
 HEADERS  += mainwindow.h \
-    instructiondialog.h \
     settingsdialog.h \
     network.h \
     neuron.h \
     converterinputdata.h \
-    viewtriplemaps.h
+    controllermaps.h \
+    viewmaps.h
 
 FORMS    += mainwindow.ui \
-    instructiondialog.ui \
     settingsdialog.ui
 
 RESOURCES += \
