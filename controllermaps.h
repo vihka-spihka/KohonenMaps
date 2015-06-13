@@ -7,10 +7,12 @@
 #include "viewmaps.h"
 #include <QTime>
 #include <QWidget>
+#include <QTimer>
 
 class controllerMaps : public QWidget
 {
      Q_OBJECT
+
 public:
 
     explicit controllerMaps(QWidget *parent = 0);
@@ -31,6 +33,7 @@ private:
     SettingsDialog *dialog;
     Network *network;
     viewMaps *gv_maps;
+    QTimer *timer;
     //vector <viewMaps*> gv_maps;
 };
 

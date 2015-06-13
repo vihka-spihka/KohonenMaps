@@ -40,13 +40,13 @@ public slots:
 
     void setText_b_nextStep(QString str);
 
-    viewMaps* getGVMaps();
-
-private slots:
-
     void slotClicked_b_nextStep();
     void slotClicked_b_pause();
     void slotClicked_b_settings();
+
+    viewMaps* getGVMaps();
+
+private slots:
 
    /* void on_action_about_triggered();
 

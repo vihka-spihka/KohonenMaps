@@ -7,6 +7,11 @@ controllerMaps::controllerMaps(QWidget *parent) : QWidget(parent)
     
     window = new MainWindow(this);
     dialog = new SettingsDialog(this);
+    timer = new QTimer();
+
+    connects();
+
+    timer->start(1000);
 }
 
 void controllerMaps::show(){
@@ -23,7 +28,7 @@ void controllerMaps::connects(){
 }
 
 void controllerMaps::clicked_b_settings(){
-    qDebug () << "click1";
+    qDebug () << "click";
     dialog->show();
 }
 

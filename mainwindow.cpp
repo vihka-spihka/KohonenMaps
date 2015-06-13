@@ -35,9 +35,9 @@ void MainWindow::connects(){
     
     connect(ui->b_nextStep, SIGNAL(clicked(bool)), SLOT(slotClicked_b_nextStep()));
     connect(ui->b_pause, SIGNAL(clicked(bool)), SLOT(slotClicked_b_pause()));
-    connect(ui->b_settings, SIGNAL(clicked(bool)), SLOT(slotClicked_b_settings()));
-    connect(ui->b_settings, SIGNAL(clicked(bool)),
+    connect(ui->b_settings, SIGNAL(clicked()), this, SIGNAL(signalClicked_b_settings()));
 }
+
 
 void MainWindow::slotClicked_b_pause(){
     emit signalClicked_b_pause();
@@ -49,6 +49,7 @@ void MainWindow::slotClicked_b_nextStep(){
 }
 
 void MainWindow::slotClicked_b_settings(){
+
     emit signalClicked_b_settings();
 }
 
