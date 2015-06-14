@@ -94,7 +94,7 @@ void SettingsDialog::on_backButton2_clicked()
 void SettingsDialog::on_buildButton_clicked()
 {
     emit closeWindow();
-    close();
+    this->close();
 
 }
 

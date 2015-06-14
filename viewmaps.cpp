@@ -1,4 +1,5 @@
 #include "viewmaps.h"
+#include "QDebug"
 
 viewMaps::viewMaps(QWidget *parent, QGraphicsView *view)
 {
@@ -8,7 +9,6 @@ viewMaps::viewMaps(QWidget *parent, QGraphicsView *view)
 
     this->widthCell = 5;
     this->countColumns = 0;
-
     this->countRows = 0;
 
     this->viewHexagons = false;
@@ -36,6 +36,7 @@ void viewMaps::setViewRectangles(){
 }
 
 void viewMaps::updateWidthCells(){
+    resizeWidthCells();
     if (viewHexagons){
         updateWidthCellsHexagons();
     }
@@ -146,13 +147,12 @@ void viewMaps::addRectangles(){
     updateRectangles();
 }
 
-void viewMaps::updateColors(const vector<vector<vector<int> > > &value)
+void viewMaps::updateColors(vector<vector<vector<int> > > &value)
 {
+
     colors = value;
     countRows = value.size();
     countColumns = value[0].size();
-
-    resizeWidthCells();
 
     if (viewHexagons)
         updateHexagons();
@@ -160,9 +160,10 @@ void viewMaps::updateColors(const vector<vector<vector<int> > > &value)
         updateRectangles();
 }
 
-void viewMaps::setColors(const vector<vector<vector<int> > > &value)
+void viewMaps::setColors(vector<vector<vector<int> > > &value)
 {
     colors = value;
+
     countRows = value.size();
     countColumns = value[0].size();
 
@@ -170,6 +171,7 @@ void viewMaps::setColors(const vector<vector<vector<int> > > &value)
 }
 
 void viewMaps::resizeWidthCells(){
+
 
     double var_h = (this->parentWidget()->height()-100)/countRows;
     double var_v = (this->parentWidget()->width()-20)/countColumns;
@@ -198,11 +200,13 @@ void viewMaps::resizeWidthCells(){
         double diff_width = (this->width()-20) - temp_length_width;
 
         if (diff_height <= 0 || diff_width <= 0) {
-            this->widthCell = value;
+            if (widthCell > 5)
+                this->widthCell = value;
+            else
+                this->widthCell = 5;
             break;
         }
     }
-    updateWidthCells();
 }
 
 void viewMaps::updateRectangles(){

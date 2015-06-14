@@ -17,15 +17,16 @@ public:
     
 public slots:
 
+    void updateWidthCells();
     void resizeWidthCells();                                // Функция автоматического подбора размера ширины ячейки (работает при каждом обновлении цвета)
     void updateColors(
-            const vector<vector<vector<int> > > &value);    // Функция обновления цвета в ячейках
+             vector<vector<vector<int> > > &value);    // Функция обновления цвета в ячейках
     void setColors(
-            const vector<vector<vector<int> > > &value);    // Функция изначального "задавания" цвета в ячейках. Первая функция после инициализации
+             vector<vector<vector<int> > > &value);    // Функция изначального "задавания" цвета в ячейках. Первая функция после инициализации
     void setViewHexagons();                                 // Выбор гексагонального вида ячеек
     void setViewRectangles();                               // Выбор прямоугольного вида ячеек
     void setWidthCell(double value);                        // Явное задавание размера ячеек
-    
+
 private:
 
     void updateRectangles();    // Обновление прямоугольников
@@ -33,7 +34,6 @@ private:
     void addRectangles();       // Добавление прямоугольников
     void addHexagons();         // Добавление шестиугольников
 
-    void updateWidthCells();
     void updateWidthCellsRectangles();
     void updateWidthCellsHexagons();
 
@@ -46,6 +46,7 @@ private:
     vector <vector <QGraphicsRectItem*> > rectangles;   // Карта прямоугольников
     vector <vector <QGraphicsPolygonItem*> > hexagons;  // Карта шестиугольников
     vector <vector <vector <int> > > colors;            // Вектор цветов
+    vector <vector <double> > anothercolors;
     QGraphicsScene* scene;                              // Сцена
 };
 

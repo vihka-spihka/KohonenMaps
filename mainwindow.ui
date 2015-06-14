@@ -52,7 +52,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QFrame" name="">
+       <widget class="QFrame" name="frame">
         <property name="minimumSize">
          <size>
           <width>250</width>
@@ -84,26 +84,6 @@
             <string>Кнопки управления</string>
            </property>
            <layout class="QGridLayout" name="gridLayout">
-            <item row="2" column="0">
-             <widget class="QPushButton" name="b_settings">
-              <property name="maximumSize">
-               <size>
-                <width>200</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Настройки</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QPushButton" name="b_pause">
-              <property name="text">
-               <string>Пауза</string>
-              </property>
-             </widget>
-            </item>
             <item row="0" column="0">
              <widget class="QPushButton" name="b_nextStep">
               <property name="enabled">
@@ -129,11 +109,31 @@
               </property>
              </widget>
             </item>
+            <item row="2" column="0">
+             <widget class="QPushButton" name="b_settings">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Настройки</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="b_pause">
+              <property name="text">
+               <string>Пауза</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="">
+          <widget class="QGroupBox" name="groupBox">
            <property name="title">
             <string>Информация о карте</string>
            </property>
@@ -146,6 +146,19 @@
                  <string>Итерация</string>
                 </property>
                </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
               <item>
                <widget class="QLabel" name="l_curIteration">
@@ -166,19 +179,6 @@
                 </property>
                </widget>
               </item>
-              <item>
-               <spacer name="horizontalSpacer_5">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
              </layout>
             </item>
             <item>
@@ -187,25 +187,6 @@
                <widget class="QLabel" name="label_7">
                 <property name="text">
                  <string>Радиус</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="l_curRange">
-                <property name="minimumSize">
-                 <size>
-                  <width>40</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>40</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
                 </property>
                </widget>
               </item>
@@ -222,6 +203,25 @@
                 </property>
                </spacer>
               </item>
+              <item>
+               <widget class="QLabel" name="l_curRange">
+                <property name="minimumSize">
+                 <size>
+                  <width>80</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>80</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
              </layout>
             </item>
             <item>
@@ -229,26 +229,7 @@
               <item>
                <widget class="QLabel" name="l_CurrentSpeedTraining">
                 <property name="text">
-                 <string>Cкорость обучения</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="l_curSpeedTraining">
-                <property name="minimumSize">
-                 <size>
-                  <width>60</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
+                 <string>Cкорость</string>
                 </property>
                </widget>
               </item>
@@ -265,6 +246,25 @@
                 </property>
                </spacer>
               </item>
+              <item>
+               <widget class="QLabel" name="l_curSpeedTraining">
+                <property name="minimumSize">
+                 <size>
+                  <width>80</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>80</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
              </layout>
             </item>
             <item>
@@ -275,6 +275,19 @@
                  <string>Эпоха</string>
                 </property>
                </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
               <item>
                <widget class="QLabel" name="l_curAge">
@@ -294,19 +307,6 @@
                  <string/>
                 </property>
                </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_3">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
               </item>
              </layout>
             </item>

@@ -15,20 +15,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connects();
 
-    /*ui->nextStepButton->setEnabled(false);
-
-    scene = new QGraphicsScene(this);
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-
-    timer = new QTimer(this);
-    curIteration = 1;
-
-    scene->setSceneRect(0,0,ui->graphicsView->width(),ui->graphicsView->height());
-
-    connect(setDlg, SIGNAL(closeWindow()),SLOT(newNetwork()));
-    connect(timer, SIGNAL(timeout()), this, SLOT(changeItems()));*/
 }
 
 void MainWindow::connects(){
@@ -38,6 +24,12 @@ void MainWindow::connects(){
     connect(ui->b_settings, SIGNAL(clicked()), this, SIGNAL(signalClicked_b_settings()));
 }
 
+void MainWindow::resizeEvent(QResizeEvent *event){
+
+    QMainWindow::resizeEvent(event);
+
+    emit signalResizeWindow();
+}
 
 void MainWindow::slotClicked_b_pause(){
     emit signalClicked_b_pause();
@@ -66,7 +58,7 @@ void MainWindow::set_l_curRange(QString str){
 }
 
 void MainWindow::set_l_curTrainingSpeed(QString str){
-    ui->l_CurrentSpeedTraining->setText(str);
+    ui->l_curSpeedTraining->setText(str);
 }
 
 void MainWindow::set_l_nameInput(QString str){
@@ -104,6 +96,17 @@ void MainWindow::set_l_valueSecondAttr(QString str){
 
 void MainWindow::set_l_valueThirdAttr(QString str){
     ui->l_valueThirdAttr->setText(str);
+}
+
+void MainWindow::setMaxMin_pb_iterator(int max, int min)
+{
+    ui->pb_iteration->setMaximum(max);
+    ui->pb_iteration->setMinimum(min);
+}
+
+void MainWindow::setValue_pb_iterator(int value)
+{
+    ui->pb_iteration->setValue(value);
 }
 
 void MainWindow::setEnabled_b_nextStep(bool checked){

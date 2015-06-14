@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QResizeEvent>
 #include <QColor>
 #include <QString>
 #include <viewmaps.h>
@@ -35,6 +36,9 @@ public slots:
     void set_l_valueSecondAttr(QString str);
     void set_l_valueThirdAttr(QString str);
 
+    void setMaxMin_pb_iterator(int max, int min);
+    void setValue_pb_iterator(int value);
+
     void setEnabled_b_nextStep(bool checked);
     void setEnabled_b_pause(bool checked);
 
@@ -48,6 +52,7 @@ public slots:
 
 private slots:
 
+    void resizeEvent(QResizeEvent* event);
    /* void on_action_about_triggered();
 
     void on_action_info_triggered();
@@ -86,6 +91,7 @@ signals:
     void signalClicked_b_nextStep();
     void signalClicked_b_pause();
     void signalClicked_b_settings();
+    void signalResizeWindow();
     
 private:
     
