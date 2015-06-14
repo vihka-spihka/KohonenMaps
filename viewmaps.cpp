@@ -30,20 +30,21 @@ void viewMaps::mousePressEvent(QMouseEvent *event)
             itemSelected = this->scene->itemAt(event->pos(), QTransform());
             itemSelected->setSelected(true);
 
-            for (int i = 0; i < pos_x_items.size(); i++)
+            for (int i = 0; i < pos_x_items.size(); i++) {
                 for (int j = 0; j < pos_x_items[i].size(); j++) {
                     if (pos_x_items[i][j] == itemSelected->x()) {
+                        //qDebug() << "x" << i << j;
                         if (pos_y_items[i][j] == itemSelected->y()){
+
+                          //  qDebug() << "y" << i << j;
                             emit selectedItem(i, j);
 
-
-
+                        }
+                    }
                 }
+            }
         }
     }
-        }
-    }
-
 }
 
 void viewMaps::setViewHexagons(){

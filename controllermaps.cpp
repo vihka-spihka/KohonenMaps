@@ -113,7 +113,7 @@ void controllerMaps::clicked_setDlg_buildMaps(){
         window->setEnabled_b_pause(false);
     }
 
-
+    findInfoCell(0,0);
     addItemsOnGraphicsView();
 }
 
@@ -258,6 +258,7 @@ void controllerMaps::updateInformation(){
 void controllerMaps::findInfoCell(int row, int column){
     vector <double> value_images_cell = network->getW()[row][column];
 
+    qDebug() << row << column;
     window->set_l_nameFirstAttr(nameColumns[0]);
     window->set_l_nameSecondAttr(nameColumns[1]);
     window->set_l_nameThirdAttr(nameColumns[2]);
