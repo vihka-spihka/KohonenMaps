@@ -18,14 +18,14 @@ public:
             double minCoegWeight
             );
 
-    void inputData(vector <double> X);
+    void inputData(vector <double> &X);
     void changeW(double speedTraining, double range);
     double getDistance();
     vector <double> getW();
+    int getIdentLayout(vector <vector <double> > &arrayX);
 private:
-
+    double calcDistance(vector <double> array);
     void createW();
-
     int x;
     int y;
     int numRows;

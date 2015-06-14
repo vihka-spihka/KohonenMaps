@@ -31,6 +31,7 @@ private slots:
     void updateWidthCells();
     void updateColorsTimer();
     void withoutStepCalc();
+    void findInfoCell(int row, int column);
 
 private:
 
@@ -39,6 +40,7 @@ private:
     void addItemsOnGraphicsView();
     void convertValueToColors();
     void updateInformation();
+    bool compateExWAndCurW();
     
     MainWindow *window;
     SettingsDialog *dialog;
@@ -51,7 +53,9 @@ private:
     vector <QString> nameColumns;
     vector < vector <double> > inputLayout;
     vector <vector <vector <int> > > colors;
+    vector <vector <vector <double> > > exW;
     vector <vector <vector <double> > > currentW;
+
 
     int countIteration;
     int currentIteration;
@@ -70,6 +74,7 @@ private:
     bool calcAfterTraining;
     bool visulization; // Визуализация при непрерывном вычислении
     bool pause;
+    bool checkedStopPoint;
 
     double minWeight;
     double maxWeight;

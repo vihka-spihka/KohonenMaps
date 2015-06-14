@@ -30,7 +30,7 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <widget class="QGraphicsView" name="gv_maps">
+         <widget class="viewMaps" name="gv_maps">
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
           </property>
@@ -343,7 +343,7 @@
               <item>
                <widget class="QLabel" name="l_nameInput">
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string> </string>
                 </property>
                </widget>
               </item>
@@ -373,8 +373,26 @@
               </item>
               <item>
                <widget class="QLabel" name="l_coordX">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>60</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>60</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string> </string>
                 </property>
                </widget>
               </item>
@@ -387,8 +405,20 @@
               </item>
               <item>
                <widget class="QLabel" name="l_coordY">
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>60</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string> </string>
                 </property>
                </widget>
               </item>
@@ -411,15 +441,39 @@
              <layout class="QHBoxLayout" name="horizontalLayout_5">
               <item>
                <widget class="QLabel" name="l_nameFirstAttr">
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>100</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string> </string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QLabel" name="l_valueFirstAttr">
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>80</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string> </string>
                 </property>
                </widget>
               </item>
@@ -442,15 +496,39 @@
              <layout class="QHBoxLayout" name="horizontalLayout_6">
               <item>
                <widget class="QLabel" name="l_nameSecondAttr">
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>100</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string> </string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QLabel" name="l_valueSecondAttr">
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>80</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string> </string>
                 </property>
                </widget>
               </item>
@@ -473,15 +551,33 @@
              <layout class="QHBoxLayout" name="horizontalLayout_7">
               <item>
                <widget class="QLabel" name="l_nameThirdAttr">
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>100</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string> </string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QLabel" name="l_valueThirdAttr">
+                <property name="minimumSize">
+                 <size>
+                  <width>80</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string> </string>
                 </property>
                </widget>
               </item>
@@ -639,6 +735,13 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>viewMaps</class>
+   <extends>QGraphicsView</extends>
+   <header>viewmaps.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="my_res.qrc"/>
  </resources>

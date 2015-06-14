@@ -46,6 +46,10 @@ Network::Network(
 
 };
 
+int Network::getIdentLayout(int row, int column){
+    return outputLayout[row][column]->getIdentLayout(inputLayout);
+}
+
 int Network::getCurAge(){
     return ex_curAge;
 };

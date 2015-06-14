@@ -1,11 +1,12 @@
 #include "viewmaps.h"
+#include <QMouseEvent>
 #include "QDebug"
 
-viewMaps::viewMaps(QWidget *parent, QGraphicsView *view)
+viewMaps::viewMaps(QWidget *parent) : QGraphicsView(parent)
 {
     this->setParent(parent);
     this->scene = new QGraphicsScene();
-    view->setScene(this->scene);
+    this->setScene(this->scene);
 
     this->widthCell = 5;
     this->countColumns = 0;
@@ -19,6 +20,30 @@ void viewMaps::setWidthCell(double value)
 {
     widthCell = value;
     updateWidthCells();
+}
+
+void viewMaps::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() & Qt::LeftButton){
+        if (this->scene->itemAt(event->pos(),QTransform())) {
+            itemSelected->setSelected(false);
+            itemSelected = this->scene->itemAt(event->pos(), QTransform());
+            itemSelected->setSelected(true);
+
+            for (int i = 0; i < pos_x_items.size(); i++)
+                for (int j = 0; j < pos_x_items[i].size(); j++) {
+                    if (pos_x_items[i][j] == itemSelected->x()) {
+                        if (pos_y_items[i][j] == itemSelected->y()){
+                            emit selectedItem(i, j);
+
+
+
+                }
+        }
+    }
+        }
+    }
+
 }
 
 void viewMaps::setViewHexagons(){
@@ -60,19 +85,30 @@ void viewMaps::updateWidthCellsHexagons(){
 
         for (int j = 0; j < hexagons[i].size(); j++){
             hexagons[i][j]->setPolygon( QPolygonF( QVector<QPointF> ()
-                                    << QPointF(varRows+widthCell/3,varColumns)
-                                    << QPointF(varRows,varColumns+widthCell/2)
-                                    << QPointF(varRows+widthCell/3,varColumns+widthCell)
-                                    << QPointF(varRows+2*widthCell/3,varColumns+widthCell)
-                                    << QPointF(varRows+widthCell,varColumns+widthCell/2)
-                                    << QPointF(varRows+2*widthCell/3,varColumns)));
+                                    << QPointF(widthCell/3,0)
+                                    << QPointF(0,0+widthCell/2)
+                                    << QPointF(0+widthCell/3,0+widthCell)
+                                    << QPointF(0+2*widthCell/3,0+widthCell)
+                                    << QPointF(0+widthCell,0+widthCell/2)
+                                    << QPointF(0+2*widthCell/3,0)));
 
             varColumns+=widthCell;
+            hexagons[i][j]->setPos(varRows, varColumns);
         }
         varRows+=2*widthCell/3;
     }
      this->scene->setSceneRect(0,0,widthCell*countColumns, widthCell*countRows);
     
+}
+
+int viewMaps::getColumnsSelectedItems() const
+{
+    return columnsSelectedItems;
+}
+
+int viewMaps::getRowSelectedItems() const
+{
+    return rowSelectedItems;
 }
 
 void viewMaps::updateWidthCellsRectangles(){
@@ -83,12 +119,13 @@ void viewMaps::updateWidthCellsRectangles(){
         rectangles[i].resize(countColumns);
         for(int j = 0; j < countColumns; j++){
             rectangles[i][j]->setRect(
-                        varRows,
-                        varColumns,
+                        0,
+                        0,
                         widthCell,
                         widthCell);
 
             varColumns+=widthCell;
+            rectangles[i][j]->setPos(varRows, varColumns);
         }
         varRows+=widthCell;
     }
@@ -97,29 +134,43 @@ void viewMaps::updateWidthCellsRectangles(){
 
 void viewMaps::addHexagons(){
     scene->clear();
-    double varRows = 0;
+    int varRows = 0;
     hexagons.resize(countRows);
+    pos_x_items.resize(countRows);
+    pos_y_items.resize(countRows);
     for(int i = 0; i < countRows; i++){
-        double varColumns;
+        int varColumns;
             if(i % 2)
                 varColumns = 0;
             else
                 varColumns = widthCell/2;
         hexagons[i].resize(countColumns);
+        pos_x_items[i].resize(countColumns);
+        pos_y_items[i].resize(countColumns);
         for(int j = 0; j < countColumns; j++){
             hexagons[i][j] = scene->addPolygon(QPolygonF(
             QVector<QPointF> ()
-                        << QPointF(varRows+widthCell/3,varColumns)
-                        << QPointF(varRows,varColumns+widthCell/2)
-                        << QPointF(varRows+widthCell/3,varColumns+widthCell)
-                        << QPointF(varRows+2*widthCell/3,varColumns+widthCell)
-                        << QPointF(varRows+widthCell,varColumns+widthCell/2)
-                        << QPointF(varRows+2*widthCell/3,varColumns)
+                        << QPointF(widthCell/3,0)
+                        << QPointF(0,0+widthCell/2)
+                        << QPointF(0+widthCell/3,0+widthCell)
+                        << QPointF(0+2*widthCell/3,0+widthCell)
+                        << QPointF(0+widthCell,0+widthCell/2)
+                        << QPointF(0+2*widthCell/3,0)
                       ),QPen(Qt::NoPen));
+
+            hexagons[i][j]->setPos(varRows, varColumns);
+            hexagons[i][j]->setFlags(QGraphicsItem::ItemIsSelectable);
+            pos_x_items[i][j] = varRows;
+            pos_y_items[i][j] = varColumns;
+
             varColumns+=widthCell;
         }
         varRows+=2*widthCell/3;
     }
+    itemSelected = hexagons[0][0];
+    rowSelectedItems = 0;
+    columnsSelectedItems = 0;
+    itemSelected->setSelected(true);
     this->scene->setSceneRect(0,0,widthCell*countColumns, widthCell*countRows);
     updateHexagons();
 }
@@ -128,21 +179,33 @@ void viewMaps::addRectangles(){
     this->scene->clear();
     int varRows = 0;
     rectangles.resize(countRows);
+    pos_x_items.resize(countRows);
+    pos_y_items.resize(countRows);
     for (int i = 0; i < countRows; i++) {
         int varColumns = 0;
         rectangles[i].resize(countColumns);
+        pos_x_items[i].resize(countColumns);
+        pos_y_items[i].resize(countColumns);
         for(int j = 0; j < countColumns; j++){
             rectangles[i][j] = scene->addRect(
-                        varRows,
-                        varColumns,
+                        0,
+                        0,
                         widthCell,
                         widthCell,
                         QPen(Qt::NoPen));
-            
+            rectangles[i][j]->setPos(varRows, varColumns);
+            rectangles[i][j]->setFlags(QGraphicsItem::ItemIsSelectable);
+            pos_x_items[i][j] = varRows;
+            pos_y_items[i][j] = varColumns;
             varColumns+=widthCell;
         }
         varRows+=widthCell;
     }
+    itemSelected = rectangles[0][0];
+    rowSelectedItems = 0;
+    columnsSelectedItems = 0;
+    itemSelected->setSelected(true);
+
     this->scene->setSceneRect(0,0,widthCell*countColumns, widthCell*countRows);
     updateRectangles();
 }
@@ -174,7 +237,7 @@ void viewMaps::resizeWidthCells(){
 
 
     double var_h = (this->parentWidget()->height()-100)/countRows;
-    double var_v = (this->parentWidget()->width()-20)/countColumns;
+    double var_v = (this->parentWidget()->width()-200)/countColumns;
 
     double min_w, max_w;
 
@@ -196,8 +259,8 @@ void viewMaps::resizeWidthCells(){
         double temp_length_height = value*countColumns;
         double temp_length_width = value*countRows;
 
-        double diff_height = (this->height()-100) - temp_length_height;
-        double diff_width = (this->width()-20) - temp_length_width;
+        double diff_height = (this->parentWidget()->height()-100) - temp_length_height;
+        double diff_width = (this->parentWidget()->width()-200) - temp_length_width;
 
         if (diff_height <= 0 || diff_width <= 0) {
             if (widthCell > 5)
@@ -207,6 +270,7 @@ void viewMaps::resizeWidthCells(){
             break;
         }
     }
+    this->scene->setSceneRect(0,0,widthCell*countColumns, widthCell*countRows);
 }
 
 void viewMaps::updateRectangles(){
@@ -230,4 +294,5 @@ void viewMaps::updateHexagons(){
         }
     }
 }
+
 

@@ -25,6 +25,7 @@ void controllerMaps::connects(){
     connect(dialog, SIGNAL(closeWindow()), SLOT(clicked_setDlg_buildMaps()));
     connect(window, SIGNAL(signalResizeWindow()), this, SLOT(updateWidthCells()));
     connect(timer, SIGNAL(timeout()), SLOT(updateColorsTimer()));
+    connect(gv_maps, SIGNAL(selectedItem(int,int)),SLOT(findInfoCell(int,int)));
 }
 
 void controllerMaps::clicked_b_settings(){
@@ -76,6 +77,7 @@ void controllerMaps::clicked_setDlg_buildMaps(){
     inputLayout = dialog->getTable();
     nameRows = dialog->getNameRows();
     nameColumns = dialog->getNameColumns();
+    checkedStopPoint = dialog->getCheckedStopPoint();
 
     currentIteration = 1;
     countImages = inputLayout.size();
@@ -97,6 +99,8 @@ void controllerMaps::clicked_setDlg_buildMaps(){
                 countRows,
                 countColumns,
                 inputLayout);
+
+    exW = network->getW();
 
     if (calcStep) {
         window->setText_b_nextStep("Следующий шаг");
@@ -147,26 +151,83 @@ void controllerMaps::addItemsOnGraphicsView(){
 void controllerMaps::stepCalc(){
 
     int varSize = currentIteration + sizeStep;
-    if (currentIteration < countIteration){
-        while (currentIteration % varSize) {
-            network->nextStep();
-            currentIteration++;
-            updateInformation();
+
+    if (checkedStopPoint) {
+        if (!compateExWAndCurW()) {
+            if (currentIteration < countIteration ){
+                while (currentIteration % varSize) {
+                    network->nextStep();
+                    currentIteration++;
+                    updateInformation();
+                }
+                convertValueToColors();
+                gv_maps->updateColors(colors);
+            }
         }
-        convertValueToColors();
-        gv_maps->updateColors(colors);
+    }
+    else {
+        if (currentIteration < countIteration){
+            while (currentIteration % varSize) {
+                network->nextStep();
+                currentIteration++;
+                updateInformation();
+            }
+            convertValueToColors();
+            gv_maps->updateColors(colors);
+        }
     }
 }
 
+bool controllerMaps::compateExWAndCurW(){
+    if (currentIteration == 1)
+        return false;
+    currentW = network->getW();
+    for (int i = 0; i < currentW.size(); i++)
+        for (int j = 0; j < currentW[i].size(); j++)
+            for (int k = 0; k < currentW[i][j].size(); k++) {
+                if (fabs(exW[i][j][k]-currentW[i][j][k]) >= stopPoint) {
+                    exW = currentW;
+                    return false;
+                }
+            }
+    return true;
+
+}
+
 void controllerMaps::withoutStepCalc(){
-    if (currentIteration <= countIteration && !pause){
-        network->nextStep();
-        updateInformation();
-        timer->start(1);
+    if (checkedStopPoint) {
+        if (!compateExWAndCurW()) {
+            if (currentIteration <= countIteration){
+                if (!pause){
+                    network->nextStep();
+                    updateInformation();
+                    timer->start(1);
+                }
+            }
+            else {
+                timer->stop();
+                window->setEnabled_b_nextStep(false);
+                window->setEnabled_b_pause(false);
+            }
+        }
+        else{
+            timer->stop();
+            window->setEnabled_b_nextStep(false);
+            window->setEnabled_b_pause(false);
+        }
     }
     else {
-        window->setEnabled_b_nextStep(false);
-        window->setEnabled_b_pause(false);
+        if (currentIteration <= countIteration){
+            if (!pause){
+                network->nextStep();
+                updateInformation();
+                timer->start(1);
+            }
+        }
+        else {
+            window->setEnabled_b_nextStep(false);
+            window->setEnabled_b_pause(false);
+        }
     }
 
 }
@@ -192,4 +253,18 @@ void controllerMaps::updateInformation(){
     window->set_l_curIteration(QString::number(currentIteration-1));
     window->set_l_curRange(QString::number(network->getCurRange()));
     window->set_l_curTrainingSpeed(QString::number(network->getCurSpeedTraining()));
+}
+
+void controllerMaps::findInfoCell(int row, int column){
+    vector <double> value_images_cell = network->getW()[row][column];
+
+    window->set_l_nameFirstAttr(nameColumns[0]);
+    window->set_l_nameSecondAttr(nameColumns[1]);
+    window->set_l_nameThirdAttr(nameColumns[2]);
+    window->set_l_valueFirstAttr(QString::number(value_images_cell[0]));
+    window->set_l_valueSecondAttr(QString::number(value_images_cell[1]));
+    window->set_l_valueThirdAttr(QString::number(value_images_cell[2]));
+    window->set_l_coordX(QString::number(row+1));
+    window->set_l_coordY(QString::number(column+1));
+    window->set_l_nameInput(nameRows[network->getIdentLayout(row, column)]);
 }

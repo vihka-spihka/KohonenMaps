@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 
     ui->setupUi(this);
-    view = new viewMaps(this, ui->gv_maps);
+    view = ui->gv_maps;
 
     ui->b_nextStep->setEnabled(false);
     ui->b_pause->setEnabled(false);

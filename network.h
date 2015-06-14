@@ -32,6 +32,7 @@ public:
     int getCurIter(); // Получение текущей итерации
     int getCurXWin(); //Получение позиции нейрона-победителя - X
     int getCurYWin(); //Получение позиции нейрона-победителя - Y
+    int getIdentLayout(int row, int column); // Получение идентфикатора входного примера, к которому ближе всего нейрон
     vector <double> getCurInputData(); //Получение текущих входных данных
     vector <vector <vector <double> > > getW(); // Получение состояний выходного слоя после ввода текущих входных данных
     //string getCurNameRows();
@@ -78,7 +79,6 @@ private:
     vector <bool> vectorCurIter;
     vector < vector <double> > inputLayout;
     vector < vector <Neuron*> > outputLayout; //2мерный вектор указателей на объект нейрон (к createNeuron)
-
 };
 
 #endif // NETWORK_H

@@ -8,7 +8,6 @@ Neuron::Neuron(int numRows, int x, int y, double maxCoegWeight, double minCoegWe
     this->numRows = numRows; //размерность входных векторов (кол-во вх нейронов)
     this->maxCoegWeight = maxCoegWeight; //максимальный коэффициент веса
     this->minCoegWeight = minCoegWeight;
-
     createW(); //создаем веса
 }
 
@@ -18,7 +17,27 @@ void Neuron::createW(){ //создаем 1 вектор весов нейрон�
         W.push_back(var*(maxCoegWeight-minCoegWeight) + minCoegWeight); //создаем рандомное double число
     }
 };
-void Neuron::inputData(vector <double> X){
+double Neuron::calcDistance(vector<double> array){
+    double var = 0;
+    for(int i = 0; i < array.size(); i++) //проходим по всем элементам вектора Х
+        var += ((array[i]-W[i])*(array[i]-W[i])); //высчитываем расстояния дл каждого нейрона выходного слоя
+    return var;
+}
+
+int Neuron::getIdentLayout(vector <vector <double> > &arrayX){
+    int var_ident = 0;
+    double var_minDistance = calcDistance(arrayX[0]);
+    for (int i = 0; i < arrayX.size(); i++) {
+        double var = calcDistance(arrayX[i]);
+        if (var_minDistance > var) {
+            var_ident = i;
+            var_minDistance = var;
+        }
+    }
+    return var_ident;
+}
+
+void Neuron::inputData(vector <double> &X){
     this->X = X; //входной вектор
 };
 double Neuron::getDistance(){ //определяем расстояния до каждого нейрона выходного слоя (связано с функцией findWinnerNeuron)

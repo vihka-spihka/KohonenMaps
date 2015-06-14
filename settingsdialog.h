@@ -68,6 +68,8 @@ public:
 
     bool getVisulization() const;
 
+    bool getCheckedStopPoint() const;
+
 private slots:
 
     void on_chooseFileButton_clicked();
@@ -120,6 +122,8 @@ private slots:
 
     void on_checkBox_toggled(bool checked);
 
+    void on_cb_stopPoint_toggled(bool checked);
+
 signals:
     void closeWindow();
 
@@ -145,7 +149,7 @@ private:
     bool hexOrSquare; // Шестиугольная или прямоугольная карта будет. 1 - hex, 0 - square
     bool stepOrAfterTrain; // Пошагово или после обучения результат. 1 - step, 0 - after train
     bool visulization; // Показ изменений на карте при обучении
-
+    bool checkedStopPoint; // 1- использовать точку останова
     void convertTableToVectors(); // конвертация таблицы в вектора
 
     void connects();

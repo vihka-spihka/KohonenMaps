@@ -156,6 +156,7 @@ void SettingsDialog::initValues(){
     ui->doubleSpinBox_5->setEnabled(false);
     ui->checkBox->setEnabled(false);
 
+    checkedStopPoint = false;
     countRowsOutputLayout = 20;
     countColumnsOutputLayout = 20;
     countAge = 1000;
@@ -365,5 +366,16 @@ void SettingsDialog::on_checkBox_toggled(bool checked)
 bool SettingsDialog::getVisulization() const
 {
     return visulization;
+}
+
+
+void SettingsDialog::on_cb_stopPoint_toggled(bool checked)
+{
+    ui->doubleSpinBox_5->setEnabled(checked);
+    checkedStopPoint = checked;
+}
+bool SettingsDialog::getCheckedStopPoint() const
+{
+    return checkedStopPoint;
 }
 

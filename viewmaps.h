@@ -6,15 +6,21 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsPolygonItem>
 #include <QObject>
+#include <QWidget>
 #include <vector>
 using namespace std;
 
-class viewMaps : public QWidget
+class viewMaps : public QGraphicsView
 {
+    Q_OBJECT
 
 public:
-    viewMaps(QWidget *parent, QGraphicsView *view);
-    
+    viewMaps(QWidget *parent);
+
+    int getRowSelectedItems() const;
+
+    int getColumnsSelectedItems() const;
+
 public slots:
 
     void updateWidthCells();
@@ -26,6 +32,12 @@ public slots:
     void setViewHexagons();                                 // Выбор гексагонального вида ячеек
     void setViewRectangles();                               // Выбор прямоугольного вида ячеек
     void setWidthCell(double value);                        // Явное задавание размера ячеек
+
+signals:
+    void selectedItem (int row, int columns);
+private slots:
+
+    void mousePressEvent(QMouseEvent *event);
 
 private:
 
@@ -43,10 +55,17 @@ private:
     bool viewRectangles;        // Прямоугольное ли отображение? 1 - да, 0 - нет
     double widthCell;           // Ширина ячейки
 
+    int rowSelectedItems;
+    int columnsSelectedItems;
+
     vector <vector <QGraphicsRectItem*> > rectangles;   // Карта прямоугольников
     vector <vector <QGraphicsPolygonItem*> > hexagons;  // Карта шестиугольников
+    vector <vector <int> > pos_x_items;
+    vector <vector <int> > pos_y_items;
+
     vector <vector <vector <int> > > colors;            // Вектор цветов
     vector <vector <double> > anothercolors;
+    QGraphicsItem * itemSelected;
     QGraphicsScene* scene;                              // Сцена
 };
 
