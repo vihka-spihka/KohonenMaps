@@ -7,8 +7,12 @@
         <file>info.png</file>
         <file>new.png</file>
         <file>mainIcon.png</file>
+        <file>settings.png</file>
     </qresource>
     <qresource prefix="/Info">
         <file>instruction.txt</file>
+        <file>instruction_2.txt</file>
+        <file>instruction_3.txt</file>
+        <file>instruction_4.txt</file>
     </qresource>
 </RCC>

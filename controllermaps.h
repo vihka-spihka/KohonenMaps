@@ -3,6 +3,7 @@
 
 #include "network.h"
 #include "mainwindow.h"
+#include "instructiondialog.h"
 #include "settingsdialog.h"
 #include "viewmaps.h"
 #include <QTime>
@@ -25,6 +26,10 @@ public slots:
     void clicked_b_settings();
     void clicked_b_pause();
     void clicked_setDlg_buildMaps();
+    void clicked_b_close_info();
+    void clicked_a_info();
+    void clicked_a_about();
+    void clicked_a_exit();
     
 private slots:
 
@@ -44,6 +49,7 @@ private:
     
     MainWindow *window;
     SettingsDialog *dialog;
+    InstructionDialog *instruction;
     Network *network;
     viewMaps *gv_maps;
     QTimer *timer;

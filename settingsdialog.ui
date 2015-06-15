@@ -31,6 +31,10 @@
   <property name="windowTitle">
    <string>Настройки</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="my_res.qrc">
+    <normaloff>:/Icons/settings.png</normaloff>:/Icons/settings.png</iconset>
+  </property>
   <layout class="QHBoxLayout" name="horizontalLayout_35">
    <item>
     <widget class="QTabWidget" name="tabWidget">
@@ -1081,10 +1085,12 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="my_res.qrc"/>
+ </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="shapeButtonGroup"/>
   <buttongroup name="demoButtonGroup"/>
+  <buttongroup name="shapeButtonGroup"/>
  </buttongroups>
 </ui>

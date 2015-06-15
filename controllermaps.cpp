@@ -7,6 +7,7 @@ controllerMaps::controllerMaps(QWidget *parent) : QWidget(parent)
     
     window = new MainWindow(this);
     dialog = new SettingsDialog(window);
+    instruction = new InstructionDialog(window);
     gv_maps = window->getGVMaps();
     timer = new QTimer();
 
@@ -26,6 +27,10 @@ void controllerMaps::connects(){
     connect(window, SIGNAL(signalResizeWindow()), this, SLOT(updateWidthCells()));
     connect(timer, SIGNAL(timeout()), SLOT(updateColorsTimer()));
     connect(gv_maps, SIGNAL(selectedItem(int,int)),SLOT(findInfoCell(int,int)));
+    connect(instruction,SIGNAL(closeWindow()),SLOT(clicked_b_close_info()));
+    connect(window,SIGNAL(signalClicked_a_info()),SLOT(clicked_a_info()));
+    connect(window,SIGNAL(signalClicked_a_about()),SLOT(clicked_a_about()));
+    connect(window,SIGNAL(signalClicked_a_exit()),SLOT(clicked_a_exit()));
 }
 
 void controllerMaps::clicked_b_settings(){
@@ -268,4 +273,20 @@ void controllerMaps::findInfoCell(int row, int column){
     window->set_l_coordX(QString::number(row+1));
     window->set_l_coordY(QString::number(column+1));
     window->set_l_nameInput(nameRows[network->getIdentLayout(row, column)]);
+}
+
+void controllerMaps::clicked_b_close_info(){
+    instruction->close();
+}
+
+void controllerMaps::clicked_a_info(){
+    instruction->show();
+}
+
+void controllerMaps::clicked_a_about(){
+
+}
+
+void controllerMaps::clicked_a_exit(){
+    window->close();
 }

@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QMessageBox>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -22,6 +23,12 @@ void MainWindow::connects(){
     connect(ui->b_nextStep, SIGNAL(clicked(bool)), SLOT(slotClicked_b_nextStep()));
     connect(ui->b_pause, SIGNAL(clicked(bool)), SLOT(slotClicked_b_pause()));
     connect(ui->b_settings, SIGNAL(clicked()), this, SIGNAL(signalClicked_b_settings()));
+    connect(ui->action_new,SIGNAL(triggered()),this,SIGNAL(signalClicked_b_settings()));
+    connect(ui->action_saveMap,SIGNAL(triggered()),this,SIGNAL(signalClicked_a_saveMap()));
+
+    connect(ui->action_info,SIGNAL(triggered()),this,SIGNAL(signalClicked_a_info()));
+    connect(ui->action_about,SIGNAL(triggered()),this,SIGNAL(signalClicked_a_about()));
+    connect(ui->action_exit,SIGNAL(triggered()),this,SIGNAL(signalClicked_a_exit()));
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event){
@@ -128,6 +135,35 @@ viewMaps* MainWindow::getGVMaps(){
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_action_saveMap(){
+    emit signalClicked_a_saveMap();
+}
+
+void MainWindow::on_action_saveInputs(){
+    emit signalClicked_a_saveInputs();
+}
+
+void MainWindow::on_action_about_triggered()    //показать справку
+{
+    emit signalClicked_a_about();
+    QMessageBox::information(this,"О программе","<h4>Выпускная квалификационная работа на тему: </h4><i>Разработка программного эмулятора карты Кохонена для использования в учебном процессе.</i>\n<b>Автор:</b> Князева В.К., ФКТИ, группа 1303");
+}
+
+void MainWindow::on_action_info_triggered() //показать инструкцию
+{
+   emit signalClicked_a_info();
+}
+
+void MainWindow::on_action_exit_triggered() //выход из программы
+{
+    emit signalClicked_a_exit();
+}
+
+void MainWindow::on_action_new_triggered()  //создать новую карту Кохонена
+{
+    emit signalClicked_b_settings();
 }
 
 /*

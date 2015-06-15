@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     neuron.cpp \
     converterinputdata.cpp \
     controllermaps.cpp \
-    viewmaps.cpp
+    viewmaps.cpp \
+    instructiondialog.cpp
 
 HEADERS  += mainwindow.h \
     settingsdialog.h \
@@ -27,10 +28,12 @@ HEADERS  += mainwindow.h \
     neuron.h \
     converterinputdata.h \
     controllermaps.h \
-    viewmaps.h
+    viewmaps.h \
+    instructiondialog.h
 
 FORMS    += mainwindow.ui \
-    settingsdialog.ui
+    settingsdialog.ui \
+    instructiondialog.ui
 
 RESOURCES += \
     my_res.qrc

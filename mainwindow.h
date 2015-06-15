@@ -48,13 +48,25 @@ public slots:
     void slotClicked_b_pause();
     void slotClicked_b_settings();
 
+    void on_action_new_triggered();
+
+    void on_action_about_triggered();
+
+    void on_action_info_triggered();
+
+    void on_action_exit_triggered();
+    void on_action_saveMap();
+    void on_action_saveInputs();
+
     viewMaps* getGVMaps();
 
 private slots:
 
     void resizeEvent(QResizeEvent* event);
-   /* void on_action_about_triggered();
 
+
+   /* void on_action_about_triggered();
+     
     void on_action_info_triggered();
 
     void on_action_exit_triggered();
@@ -92,6 +104,12 @@ signals:
     void signalClicked_b_pause();
     void signalClicked_b_settings();
     void signalResizeWindow();
+    void signalClicked_a_saveMap();
+    void signalClicked_a_saveInputs();
+    void signalClicked_a_info();
+    void signalClicked_a_about();
+    void signalClicked_a_exit();
+
     
 private:
     
