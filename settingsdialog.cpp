@@ -1,6 +1,7 @@
 #include <QMessageBox>
 #include <QFile>
 #include <QFileDialog>
+#include <QTextStream>
 #include "settingsdialog.h"
 
 SettingsDialog::SettingsDialog(QWidget *parent) :
@@ -9,6 +10,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
 {
 
     initValues();
+    ui->tabWidget->setTabEnabled(1, false);
+    ui->tabWidget->setTabEnabled(2, false);
 
 }
 
@@ -22,6 +25,10 @@ void SettingsDialog::clicked_save_inputs(){
     QFile file(filePath);
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream out(&file);
+    QString strInFile;
+    //QTextStream srt(strInFile);
+
+    //out << str(strInFile);
 
     /*for (int i = 0; i < nameColumns.size(); i++){
         out<<nameColumns;
@@ -38,7 +45,7 @@ void SettingsDialog::clicked_save_inputs(){
         }*/
 
     /*
-
+  //Пример
   QString fr= QFileDialog::getSaveFileName(this,tr("Save"),"c:/",tr("CSV Files (*.csv)"));
   QFile file(fr);
   file.open(QIODevice::WriteOnly | QIODevice::Text);
@@ -51,7 +58,6 @@ for (int i=0;i<4;i++){
     out<<";";
         };
        out<<"\n";
-
 
   file.close();
 */
@@ -114,7 +120,7 @@ void SettingsDialog::on_nextButton1_clicked()
     int index = ui->tabWidget->currentIndex();
     index++;
     ui->tabWidget->setCurrentIndex(index);
-
+    ui->tabWidget->setTabEnabled(1, true);
     }
     else
         QMessageBox::warning(this,"Ошибка!","Слишком мало столбцов или строк!");
@@ -129,6 +135,7 @@ void SettingsDialog::on_backButton1_clicked()
 
 void SettingsDialog::on_nextButton2_clicked()
 {
+    ui->tabWidget->setTabEnabled(2, true);
     int index = ui->tabWidget->currentIndex();
     index++;
     ui->tabWidget->setCurrentIndex(index);
