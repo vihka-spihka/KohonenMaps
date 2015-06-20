@@ -1,5 +1,8 @@
 #include <QImage>
 #include <QPainter>
+#include <QTextStream>
+#include <QFile>
+
 #include "controllermaps.h"
 #include "viewmaps.h"
 
@@ -35,8 +38,10 @@ void controllerMaps::connects(){
     connect(window,SIGNAL(signalClicked_a_about()),SLOT(clicked_a_about()));
     connect(window,SIGNAL(signalClicked_a_exit()),SLOT(clicked_a_exit()));
     connect(window, SIGNAL(signalClicked_a_saveMap()),gv_maps,SLOT(clicked_a_save_map()));
-    connect(window,SIGNAL(signalClicked_a_saveInputs()),dialog,SLOT(clicked_save_inputs()));
+    connect(window,SIGNAL(signalClicked_a_saveInputs()),SLOT(clicked_a_save_inputs()));
 }
+
+
 
 void controllerMaps::clicked_b_settings(){
     dialog->show();
@@ -116,11 +121,16 @@ void controllerMaps::clicked_setDlg_buildMaps(){
         window->setText_b_nextStep("Следующий шаг");
         window->setEnabled_b_nextStep(true);
         window->setEnabled_b_pause(false);
+        window->setEnabled_a_saveInputs(true);
+        window->setEnabled_a_saveMap(true);
+
     }
     else if (calcAfterTraining) {
         window->setText_b_nextStep("Старт");
         window->setEnabled_b_nextStep(true);
-        window->setEnabled_b_pause(false);
+        window->setEnabled_b_pause(false);        
+        window->setEnabled_a_saveInputs(true);
+        window->setEnabled_a_saveMap(true);
     }
 
     findInfoCell(0,0);
@@ -275,7 +285,6 @@ void controllerMaps::updateInformation(){
 void controllerMaps::findInfoCell(int row, int column){
     vector <double> value_images_cell = network->getW()[row][column];
 
-    qDebug() << row << column;
     window->set_l_nameFirstAttr(nameColumns[0]);
     window->set_l_nameSecondAttr(nameColumns[1]);
     window->set_l_nameThirdAttr(nameColumns[2]);
@@ -309,4 +318,61 @@ void controllerMaps::clicked_a_save_map(){
 
 void controllerMaps::clicked_a_save_inputs(){
 
+    QString fileName = QFileDialog::getSaveFileName(window, tr("Сохранить файл"), "",
+        "Text Files (*.txt)");
+
+        if (fileName != "") {
+            QFile file(fileName);
+            if (!file.open(QIODevice::WriteOnly)) {
+                // error message
+            } else {
+                QTextStream stream(&file);
+                stream << convertDataToString();
+                stream.flush();
+                file.close();
+            }
+        }
+
+    /*//QString filePath = QFileDialog::getSaveFileName(this,"Сохранить файл","c:/","Text files (*.txt)");
+    //QFile file(filePath);
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream out(&file);
+
+    for (int i = 0; i < nameColumns.size(); i++){
+        //out<<nameColumns;
+        out<<",";
+    }
+    out<<"\n";
+    for (int i = 0; i < nameRows.size(); i++){
+        ui->tableWidget->setVerticalHeaderItem(i, new QTableWidgetItem(nameRows[i]));
+    }
+
+    for (int i = 0; i < nameRows.size(); i++)
+        for (int j = 0; j < nameColumns.size(); j++) {
+            ui->tableWidget->setItem(i,j, new QTableWidgetItem(QString::number(table[i][j])));
+        }
+
+    file.close();*/
+}
+
+QString controllerMaps::convertDataToString(){
+    QString str = "";
+
+    for(int i = 0; i < nameColumns.size(); i++){
+        if (i == nameColumns.size()-1)
+            str += nameColumns[i] + QString("\n");
+        else
+            str += nameColumns[i] + QString(",");
+    }
+
+    for (int i = 0; i < nameRows.size(); i++){
+        str += nameRows[i] + QString(",");
+        for (int j = 0; j < nameColumns.size(); j++){
+            if (j == nameColumns.size()-1)
+                str += QString::number(inputLayout[i][j]) + QString("\n");
+            else
+                str += QString::number(inputLayout[i][j]) + QString(",");
+        }
+    }
+    return str;
 }

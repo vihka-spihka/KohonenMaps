@@ -21,47 +21,7 @@ SettingsDialog::~SettingsDialog()
 }
 
 void SettingsDialog::clicked_save_inputs(){
-    QString filePath = QFileDialog::getSaveFileName(this,"Сохранить файл","c:/","Text files (*.txt)");
-    QFile file(filePath);
-    file.open(QIODevice::WriteOnly | QIODevice::Text);
-    QTextStream out(&file);
-   // QString strInFile;
-    //QTextStream srt(strInFile);
 
-    //out << str(strInFile);
-
-    for (int i = 0; i < nameColumns.size(); i++){
-        //out<<nameColumns;
-        out<<",";
-    }
-    out<<"\n";
-    for (int i = 0; i < nameRows.size(); i++){
-        ui->tableWidget->setVerticalHeaderItem(i, new QTableWidgetItem(nameRows[i]));
-    }
-
-    for (int i = 0; i < nameRows.size(); i++)
-        for (int j = 0; j < nameColumns.size(); j++) {
-            ui->tableWidget->setItem(i,j, new QTableWidgetItem(QString::number(table[i][j])));
-        }
-
-    /*
-  //Пример
-  QString fr= QFileDialog::getSaveFileName(this,tr("Save"),"c:/",tr("CSV Files (*.csv)"));
-  QFile file(fr);
-  file.open(QIODevice::WriteOnly | QIODevice::Text);
-  QTextStream out(&file);
-  out<<QObject::tr("Название;Автор;Год;Рейтинг\n");
-   out.setCodec(QTextCodec::codecForName("windows-1251"));
-for (int i=0;i<4;i++){
-       for (int j=0;j<4;j++){
-   out<<ui->tableWidget->item(i, j);
-    out<<";";
-        };
-       out<<"\n";
-
-  file.close();
-*/
-    file.close();
 }
 
 void SettingsDialog::on_chooseFileButton_clicked()

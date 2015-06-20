@@ -61,6 +61,9 @@ public slots:
     void on_action_saveMap();
     void on_action_saveInputs();
 
+    void setEnabled_a_saveMap(bool checked);
+    void setEnabled_a_saveInputs(bool checked);
+
     viewMaps* getGVMaps();
 
 private slots:

@@ -49,6 +49,7 @@ private:
     void convertValueToColors();
     void updateInformation();
     bool compateExWAndCurW();
+    QString convertDataToString();
     
     MainWindow *window;
     SettingsDialog *dialog;

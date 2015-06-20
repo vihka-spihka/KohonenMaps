@@ -43,6 +43,14 @@ void MainWindow::slotClicked_b_pause(){
     emit signalClicked_b_pause();
 }
 
+void MainWindow::setEnabled_a_saveMap(bool checked){
+    ui->action_saveMap->setEnabled(checked);
+}
+
+void MainWindow::setEnabled_a_saveInputs(bool checked){
+    ui->action_saveInputs->setEnabled(checked);
+}
+
 void MainWindow::slotClicked_b_nextStep(){
     
     emit signalClicked_b_nextStep();
