@@ -39,6 +39,9 @@ public slots:
     void setMaxMin_pb_iterator(int max, int min);
     void setValue_pb_iterator(int value);
 
+    void setEnable_save_map(bool checked);
+    void setEnable_save_inputs(bool checked);
+
     void setEnabled_b_nextStep(bool checked);
     void setEnabled_b_pause(bool checked);
 

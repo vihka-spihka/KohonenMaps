@@ -25,13 +25,13 @@ void SettingsDialog::clicked_save_inputs(){
     QFile file(filePath);
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream out(&file);
-    QString strInFile;
+   // QString strInFile;
     //QTextStream srt(strInFile);
 
     //out << str(strInFile);
 
-    /*for (int i = 0; i < nameColumns.size(); i++){
-        out<<nameColumns;
+    for (int i = 0; i < nameColumns.size(); i++){
+        //out<<nameColumns;
         out<<",";
     }
     out<<"\n";
@@ -42,7 +42,7 @@ void SettingsDialog::clicked_save_inputs(){
     for (int i = 0; i < nameRows.size(); i++)
         for (int j = 0; j < nameColumns.size(); j++) {
             ui->tableWidget->setItem(i,j, new QTableWidgetItem(QString::number(table[i][j])));
-        }*/
+        }
 
     /*
   //Пример
@@ -61,6 +61,7 @@ for (int i=0;i<4;i++){
 
   file.close();
 */
+    file.close();
 }
 
 void SettingsDialog::on_chooseFileButton_clicked()

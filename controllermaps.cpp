@@ -218,12 +218,17 @@ void controllerMaps::withoutStepCalc(){
                 timer->stop();
                 window->setEnabled_b_nextStep(false);
                 window->setEnabled_b_pause(false);
+                window->setEnable_save_map(true);
+                window->setEnable_save_inputs(true);
             }
         }
         else{
             timer->stop();
             window->setEnabled_b_nextStep(false);
             window->setEnabled_b_pause(false);
+            window->setEnable_save_map(true);
+            window->setEnable_save_inputs(true);
+
         }
     }
     else {
@@ -237,6 +242,8 @@ void controllerMaps::withoutStepCalc(){
         else {
             window->setEnabled_b_nextStep(false);
             window->setEnabled_b_pause(false);
+            window->setEnable_save_map(true);
+            window->setEnable_save_inputs(true);
         }
     }
 
@@ -297,13 +304,7 @@ void controllerMaps::clicked_a_exit(){
 }
 
 void controllerMaps::clicked_a_save_map(){
-/*viewMaps view = new viewMaps(this);
-QImage image(view.scene->width(), view.scene->height(), QImage::Format_ARGB32_Premultiplied);
-image.fill(NULL);
-QPainter painter(&image);
-view.scene->render(&painter);
-image.save("c:/result.png");
-*/
+
 }
 
 void controllerMaps::clicked_a_save_inputs(){

@@ -10,7 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
     view = ui->gv_maps;
-
+    ui->action_saveMap->setEnabled(false);
+    ui->action_saveInputs->setEnabled(false);
     ui->b_nextStep->setEnabled(false);
     ui->b_pause->setEnabled(false);
 
@@ -122,6 +123,14 @@ void MainWindow::setEnabled_b_nextStep(bool checked){
 
 void MainWindow::setEnabled_b_pause(bool checked){
     ui->b_pause->setEnabled(checked);
+}
+
+void MainWindow::setEnable_save_map(bool checked){
+      ui->action_saveMap->setEnabled(checked);
+}
+
+void MainWindow::setEnable_save_inputs(bool checked){
+    ui->action_saveInputs->setEnabled(checked);
 }
 
 void MainWindow::setText_b_nextStep(QString str){
