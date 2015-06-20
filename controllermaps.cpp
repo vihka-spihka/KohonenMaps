@@ -1,4 +1,7 @@
+#include <QImage>
+#include <QPainter>
 #include "controllermaps.h"
+#include "viewmaps.h"
 
 controllerMaps::controllerMaps(QWidget *parent) : QWidget(parent)
 {
@@ -31,6 +34,8 @@ void controllerMaps::connects(){
     connect(window,SIGNAL(signalClicked_a_info()),SLOT(clicked_a_info()));
     connect(window,SIGNAL(signalClicked_a_about()),SLOT(clicked_a_about()));
     connect(window,SIGNAL(signalClicked_a_exit()),SLOT(clicked_a_exit()));
+    connect(window, SIGNAL(signalClicked_a_saveMap()),gv_maps,SLOT(clicked_a_save_map()));
+    connect(window,SIGNAL(signalClicked_a_saveInputs()),dialog,SLOT(clicked_save_inputs()));
 }
 
 void controllerMaps::clicked_b_settings(){
@@ -289,4 +294,18 @@ void controllerMaps::clicked_a_about(){
 
 void controllerMaps::clicked_a_exit(){
     window->close();
+}
+
+void controllerMaps::clicked_a_save_map(){
+/*viewMaps view = new viewMaps(this);
+QImage image(view.scene->width(), view.scene->height(), QImage::Format_ARGB32_Premultiplied);
+image.fill(NULL);
+QPainter painter(&image);
+view.scene->render(&painter);
+image.save("c:/result.png");
+*/
+}
+
+void controllerMaps::clicked_a_save_inputs(){
+
 }

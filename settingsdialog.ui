@@ -39,7 +39,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="inputSettings">
       <attribute name="title">
@@ -451,6 +451,9 @@
                </item>
                <item>
                 <widget class="QDoubleSpinBox" name="doubleSpinBox">
+                 <property name="minimum">
+                  <double>0.100000000000000</double>
+                 </property>
                  <property name="maximum">
                   <double>0.990000000000000</double>
                  </property>
@@ -1090,7 +1093,7 @@
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="demoButtonGroup"/>
   <buttongroup name="shapeButtonGroup"/>
+  <buttongroup name="demoButtonGroup"/>
  </buttongroups>
 </ui>

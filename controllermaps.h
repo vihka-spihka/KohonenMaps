@@ -30,6 +30,8 @@ public slots:
     void clicked_a_info();
     void clicked_a_about();
     void clicked_a_exit();
+    void clicked_a_save_map();
+    void clicked_a_save_inputs();
     
 private slots:
 
@@ -37,6 +39,7 @@ private slots:
     void updateColorsTimer();
     void withoutStepCalc();
     void findInfoCell(int row, int column);
+
 
 private:
 

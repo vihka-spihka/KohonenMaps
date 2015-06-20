@@ -1,3 +1,6 @@
+#include <QMessageBox>
+#include <QFile>
+#include <QFileDialog>
 #include "settingsdialog.h"
 
 SettingsDialog::SettingsDialog(QWidget *parent) :
@@ -14,6 +17,45 @@ SettingsDialog::~SettingsDialog()
     delete ui;
 }
 
+void SettingsDialog::clicked_save_inputs(){
+    QString filePath = QFileDialog::getSaveFileName(this,"Сохранить файл","c:/","Text files (*.txt)");
+    QFile file(filePath);
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream out(&file);
+
+    /*for (int i = 0; i < nameColumns.size(); i++){
+        out<<nameColumns;
+        out<<",";
+    }
+    out<<"\n";
+    for (int i = 0; i < nameRows.size(); i++){
+        ui->tableWidget->setVerticalHeaderItem(i, new QTableWidgetItem(nameRows[i]));
+    }
+
+    for (int i = 0; i < nameRows.size(); i++)
+        for (int j = 0; j < nameColumns.size(); j++) {
+            ui->tableWidget->setItem(i,j, new QTableWidgetItem(QString::number(table[i][j])));
+        }*/
+
+    /*
+
+  QString fr= QFileDialog::getSaveFileName(this,tr("Save"),"c:/",tr("CSV Files (*.csv)"));
+  QFile file(fr);
+  file.open(QIODevice::WriteOnly | QIODevice::Text);
+  QTextStream out(&file);
+  out<<QObject::tr("Название;Автор;Год;Рейтинг\n");
+   out.setCodec(QTextCodec::codecForName("windows-1251"));
+for (int i=0;i<4;i++){
+       for (int j=0;j<4;j++){
+   out<<ui->tableWidget->item(i, j);
+    out<<";";
+        };
+       out<<"\n";
+
+
+  file.close();
+*/
+}
 
 void SettingsDialog::on_chooseFileButton_clicked()
 {
@@ -33,6 +75,7 @@ void SettingsDialog::on_chooseFileButton_clicked()
             nameColumns = converter.getNameColumns();
             table = converter.getTable();
 
+            file.flush();//добавила сброс инфы с жесткого диска
             file.close();
 
             fillingTableWidget();
@@ -64,10 +107,17 @@ void SettingsDialog::fillingTableWidget(){
 
 void SettingsDialog::on_nextButton1_clicked()
 {
-    convertTableToVectors();
+    if(ui->tableWidget->rowCount() >0 && ui->tableWidget->columnCount() >2){
+
+        convertTableToVectors();
+
     int index = ui->tabWidget->currentIndex();
     index++;
     ui->tabWidget->setCurrentIndex(index);
+
+    }
+    else
+        QMessageBox::warning(this,"Ошибка!","Слишком мало столбцов или строк!");
 }
 
 void SettingsDialog::on_backButton1_clicked()
@@ -189,7 +239,10 @@ void SettingsDialog::convertTableToVectors(){
     for (int i = 0; i < ui->tableWidget->rowCount(); i++){
             table.resize(table.size()+1);
             for (int j = 0; j < ui->tableWidget->columnCount(); j++) {
+                //if (table[i]='')
+                  //      QMessageBox::warning(this,"lol","fuuuuck");
                 table[i].push_back(ui->tableWidget->item(i,j)->text().toDouble());
+
             }
         }
 

@@ -25,7 +25,7 @@ void MainWindow::connects(){
     connect(ui->b_settings, SIGNAL(clicked()), this, SIGNAL(signalClicked_b_settings()));
     connect(ui->action_new,SIGNAL(triggered()),this,SIGNAL(signalClicked_b_settings()));
     connect(ui->action_saveMap,SIGNAL(triggered()),this,SIGNAL(signalClicked_a_saveMap()));
-
+    connect(ui->action_saveInputs, SIGNAL(triggered()),this,SIGNAL(signalClicked_a_saveInputs()));
     connect(ui->action_info,SIGNAL(triggered()),this,SIGNAL(signalClicked_a_info()));
     connect(ui->action_about,SIGNAL(triggered()),this,SIGNAL(signalClicked_a_about()));
     connect(ui->action_exit,SIGNAL(triggered()),this,SIGNAL(signalClicked_a_exit()));

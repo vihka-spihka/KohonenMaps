@@ -1,4 +1,6 @@
 #include "viewmaps.h"
+#include <QFile>
+#include <QFileDialog>
 #include <QMouseEvent>
 #include "QDebug"
 
@@ -20,6 +22,17 @@ void viewMaps::setWidthCell(double value)
 {
     widthCell = value;
     updateWidthCells();
+}
+
+void viewMaps::clicked_a_save_map(){
+
+    QImage image(scene->width(), scene->height(), QImage::Format_ARGB32_Premultiplied);
+    image.fill(NULL);
+    QPainter painter(&image);
+    scene->render(&painter);
+    QString filePath = QFileDialog::getSaveFileName(this,"Сохраненить файл", "c:/", "Image files (*.png)");
+    //QString fileName = QFileDialog::getOpenFileName(this,"Открыть документ","c:/", "Text files (*.txt)");
+    image.save(filePath);
 }
 
 void viewMaps::mousePressEvent(QMouseEvent *event)

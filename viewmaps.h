@@ -35,8 +35,9 @@ public slots:
 
 signals:
     void selectedItem (int row, int columns);
-private slots:
 
+private slots:
+    void clicked_a_save_map();
     void mousePressEvent(QMouseEvent *event);
 
 private:
@@ -66,6 +67,7 @@ private:
     vector <vector <vector <int> > > colors;            // Вектор цветов
     vector <vector <double> > anothercolors;
     QGraphicsItem * itemSelected;
+//public:
     QGraphicsScene* scene;                              // Сцена
 };
 

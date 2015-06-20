@@ -74,6 +74,8 @@ private slots:
 
     void on_chooseFileButton_clicked();
 
+    void clicked_save_inputs();
+
     void on_nextButton1_clicked();
 
     void on_backButton1_clicked();
